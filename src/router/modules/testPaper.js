@@ -18,7 +18,7 @@ const testPaperRouterMap = [
     },
     children: [{
       path: 'index',
-      component: () => import('@/views/testPaper/manage'),
+      component: () => import('@/views/testPaper/index'),
       name: 'app.testPaper.index',
       roles: ['superAdmin'],
       meta: {
