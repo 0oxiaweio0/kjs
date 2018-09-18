@@ -4,46 +4,24 @@
       <div class="test-paper-items-title"><img :src="u618" alt=""><span>初中试卷</span></div>
       <hr>
       <el-row :gutter="20">
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
+        <el-col :xs="12" :sm="8" :md="6" :lg="5" v-for="(classItem,index) in class1" :key="index">
           <el-card shadow="hover">
             <div class="paper-item">
-              <div class="top">初一</div>
+              <div class="top">{{classItem.className}}</div>
               <div class="bottom">
-                <div class="left"><img :src="u623" alt="初一"></div>
+                <div class="left"><img :src="classItem.icon" :alt="classItem.className"></div>
                 <div class="right">
-                  <div class="paper-left">上期</div>
+                  <div class="paper-left">
+                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
+                      {{classItem.children[0].classLevel}}
+                    </router-link>
+                  </div>
                   <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
-          <el-card shadow="hover">
-            <div class="paper-item">
-              <div class="top">初二</div>
-              <div class="bottom">
-                <div class="left"><img :src="u652" alt="初二"></div>
-                <div class="right">
-                  <div class="paper-left">上期</div>
-                  <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
-          <el-card shadow="hover">
-            <div class="paper-item">
-              <div class="top">初三</div>
-              <div class="bottom">
-                <div class="left"><img :src="u653" alt="初三"></div>
-                <div class="right">
-                  <div class="paper-left">上期</div>
-                  <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
+                  <div class="paper-right">
+                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
+                      {{classItem.children[1].classLevel}}
+                    </router-link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -55,52 +33,31 @@
       <div class="test-paper-items-title"><img :src="u619" alt=""><span>高中试卷</span></div>
       <hr>
       <el-row :gutter="20">
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
+        <el-col :xs="12" :sm="8" :md="6" :lg="5" v-for="(classItem,index) in class2" :key="index">
           <el-card shadow="hover">
             <div class="paper-item">
-              <div class="top">高一</div>
+              <div class="top">{{classItem.className}}</div>
               <div class="bottom">
-                <div class="left"><img :src="u654" alt="高一"></div>
+                <div class="left"><img :src="classItem.icon" :alt="classItem.className"></div>
                 <div class="right">
-                  <div class="paper-left">上期</div>
+                  <div class="paper-left">
+                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
+                      {{classItem.children[0].classLevel}}
+                    </router-link>
+                  </div>
                   <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
-          <el-card shadow="hover">
-            <div class="paper-item">
-              <div class="top">高二</div>
-              <div class="bottom">
-                <div class="left"><img :src="u655" alt="高二"></div>
-                <div class="right">
-                  <div class="paper-left">上期</div>
-                  <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
-                </div>
-              </div>
-            </div>
-          </el-card>
-        </el-col>
-        <el-col :xs="12" :sm="8" :md="6" :lg="5">
-          <el-card shadow="hover">
-            <div class="paper-item">
-              <div class="top">高三</div>
-              <div class="bottom">
-                <div class="left"><img :src="u656" alt="高三"></div>
-                <div class="right">
-                  <div class="paper-left">上期</div>
-                  <div class="paper-mid">|</div>
-                  <div class="paper-right">下期</div>
+                  <div class="paper-right">
+                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
+                      {{classItem.children[1].classLevel}}
+                    </router-link>
+                  </div>
                 </div>
               </div>
             </div>
           </el-card>
         </el-col>
       </el-row>
+
     </div>
   </div>
 </template>
@@ -108,24 +65,21 @@
 <script>
   import u618 from '@/assets/testPaper/u618.jpg'
   import u619 from '@/assets/testPaper/u619.jpg'
-  import u623 from '@/assets/testPaper/u623.png'
-  import u652 from '@/assets/testPaper/u652.png'
-  import u653 from '@/assets/testPaper/u653.png'
-  import u654 from '@/assets/testPaper/u654.png'
-  import u655 from '@/assets/testPaper/u655.png'
-  import u656 from '@/assets/testPaper/u656.png'
+  import classData from '@/data/classData'
   export default {
     name: 'testPaperIndex',
     data() {
       return {
         u618,
-        u619,
-        u623,
-        u652,
-        u653,
-        u654,
-        u655,
-        u656
+        u619
+      }
+    },
+    computed: {
+      class1() {
+        return classData.filter(item => item.level === '1')
+      },
+      class2() {
+        return classData.filter(item => item.level === '2')
       }
     },
     components: { }
@@ -192,6 +146,7 @@
           line-height:  50px;
           text-align: right;
           padding-right: 8px;
+          color:#169BD5;
         }
         .paper-mid{
           display: inline-block;
@@ -206,6 +161,7 @@
           height: 100%;
           line-height:  50px;;
           text-align: left;
+          color:#169BD5;
         }
       }
     }

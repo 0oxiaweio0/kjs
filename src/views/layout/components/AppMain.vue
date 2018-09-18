@@ -21,3 +21,9 @@ export default {
   }
 }
 </script>
+<style rel="stylesheet/scss" lang="scss" scoped>
+  .app-main{
+    margin: 20px;
+    background-color: #ffffff;
+  }
+</style>

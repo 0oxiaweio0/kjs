@@ -61,4 +61,7 @@ export default {
     position: absolute;
     z-index: 999;
   }
+  .main-container{
+    background-color: rgba(244, 244, 244, 1) !important;
+  }
 </style>

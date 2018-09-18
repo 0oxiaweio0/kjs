@@ -3,7 +3,7 @@
     <template v-for="item in routes" v-if="!item.hidden&&item.children">
       <router-link :to="item.path+'/'+item.children[0].path"
         :key="item.children[0].name">
-        <el-menu-item :index="item.path+'/'+item.children[0].path" :class="{'submenu-title-noDropdown':!isNest}">
+        <el-menu-item :index="item.path+'/'+item.children[0].path" :class="{'submenu-title-noDropdown':!isNest,'selected':$route.path.indexOf(item.path)!==-1}">
           <svg-icon v-if="item.children[0].meta&&item.children[0].meta.icon" :icon-class="item.children[0].meta.icon" :class-name="svgColor"></svg-icon>
           <span v-if="item.children[0].meta&&item.children[0].meta.name" slot="title">{{item.meta.name}}</span>
         </el-menu-item>
@@ -39,6 +39,8 @@ export default {
       }
       return false
     }
+  },
+  created() {
   }
 }
 </script>
@@ -46,6 +48,10 @@ export default {
   .menu-wrapper{
     .el-menu-item.is-active{
       background-color: rgba(16, 141, 233, 1)!important;
+    }
+    .el-menu-item.selected{
+      background-color: rgba(16, 141, 233, 1)!important;
+      color: #ffffff!important;
     }
     .el-menu-item, .el-submenu__title{
       height: 40px;
@@ -61,6 +67,10 @@ export default {
       }
     }
     .el-menu-item.is-active:hover{
+      background-color: rgba(16, 141, 233, 1)!important;
+      color: #ffffff!important;
+    }
+    .el-menu-item.selected:hover{
       background-color: rgba(16, 141, 233, 1)!important;
       color: #ffffff!important;
     }

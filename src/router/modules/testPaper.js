@@ -28,7 +28,7 @@ const testPaperRouterMap = [
         name: '试卷管理'
       }
     }, {
-      path: 'list',
+      path: 'list/:class/:type',
       component: () => import('@/views/testPaper/list'),
       name: 'app.testPaper.list',
       roles: ['superAdmin'],
