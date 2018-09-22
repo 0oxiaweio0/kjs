@@ -37,6 +37,16 @@ const testPaperRouterMap = [
         group: 'testPaper',
         name: '试卷列表'
       }
+    }, {
+      path: 'paperAdd',
+      component: () => import('@/views/testPaper/paperAdd'),
+      name: 'app.testPaper.paperAdd',
+      roles: ['superAdmin'],
+      meta: {
+        title: 'testPaperAdd',
+        group: 'testPaper',
+        name: '试卷添加'
+      }
     }
     ]
   }

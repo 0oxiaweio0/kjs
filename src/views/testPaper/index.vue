@@ -65,7 +65,7 @@
 <script>
   import u618 from '@/assets/testPaper/u618.jpg'
   import u619 from '@/assets/testPaper/u619.jpg'
-  import classData from '@/data/classData'
+  import classData from '@/data/config/classData'
   export default {
     name: 'testPaperIndex',
     data() {
