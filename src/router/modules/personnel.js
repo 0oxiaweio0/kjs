@@ -7,7 +7,7 @@ const personnelRouterMap = [
   /* 人员管理 */
   {
     path: '/personnel',
-    redirect: '/personnel/index',
+    redirect: '/personnel/manage',
     component: Layout,
     name: 'app.personnel',
     roles: ['superAdmin'],
@@ -17,16 +17,43 @@ const personnelRouterMap = [
       group: 'personnel'
     },
     children: [{
-      path: 'index',
+      path: 'manage',
+      redirect: 'manage/class',
       component: () => import('@/views/personnel/index'),
-      name: 'app.personnel.index',
+      name: 'app.personnel.manage',
       roles: ['superAdmin'],
       meta: {
         icon: 'person',
         title: 'personnelIndex',
-        group: 'testPaper',
+        group: 'personnel',
         name: '人员管理'
-      }
+      },
+      children: [
+        {
+          path: 'class',
+          component: () => import('@/views/personnel/component/class'),
+          name: 'app.personnel.manage.class',
+          roles: ['superAdmin'],
+          meta: {
+            icon: 'person',
+            title: 'personnelClassManage',
+            group: 'personnel',
+            name: '班级管理'
+          }
+        },
+        {
+          path: 'teacher',
+          component: () => import('@/views/personnel/component/teacher'),
+          name: 'app.personnel.manage.teacher',
+          roles: ['superAdmin'],
+          meta: {
+            icon: 'person',
+            title: 'personnelTeacherManage',
+            group: 'personnel',
+            name: '教师管理'
+          }
+        }
+      ]
     }
     ]
   }
