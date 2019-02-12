@@ -17,6 +17,7 @@ import i18n from './lang' // Internationalization
 import './icons' // icon
 import './errorLog'// error log
 import './permission' // permission control
+import 'babel-polyfill'
 
 Vue.use(Element, {
   size: 'medium', // set element-ui default size
