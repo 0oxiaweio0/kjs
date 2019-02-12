@@ -8,7 +8,7 @@ const app = {
     },
     device: 'desktop',
     language: Cookies.get('language') || 'zh',
-    systemName: '考卷网'
+    systemName: '金典教育'
   },
   mutations: {
     TOGGLE_SIDEBAR: state => {
