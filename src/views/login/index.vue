@@ -1,9 +1,20 @@
 <template>
   <div class="login-container">
     <div class="login-top">
-      <div class="system-name">
-        <div class="system-name-bg"></div>
-        <div class="system-name-text"><span>{{systemName}}</span></div>
+      <div class="login-top-content">
+        <div class="system-logo">
+          金典教育LOGO
+        </div>
+        <div class="system-user">
+          <div class="system-user-content">
+            <div class="system-user-cell">
+              <img class="user-avatar" :src="userGif">
+              <span>金典教育</span>
+              <img class="user-set" :src="userSet">
+              <span>设置</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div class="login-main">
@@ -38,6 +49,8 @@
 </template>
 
 <script>
+  import userSet from '@/assets/icon/set.png'
+  import userGif from '@/assets/user.gif'
   import login_logo from '@/assets/login/u581.jpg'
   import Cookies from 'js-cookie'// 用于测试设置token后续删除
   export default {
@@ -48,6 +61,8 @@
         debug: true,
         systemName: this.$store.state.app.systemName,
         login_logo,
+        userGif,
+        userSet,
         loginForm: {
           username: '', // 用户名
           password: '' // 密码
@@ -247,55 +262,64 @@
     background-color: $bg;
     padding-top: 64px;
     .login-top{
-      border-width: 0px;
       position: absolute;
       left: 0px;
       top: 0px;
       width: 100%;
-      height: 64px;
+      height: 80px;
       background: inherit;
-      background-color: rgba(63, 63, 63, 1);
-      border: none;
+      background-color: rgba(255,255,255,1);
       border-radius: 0px;
-      -moz-box-shadow: none;
-      -webkit-box-shadow: none;
-      box-shadow: none;
-      .system-name{
-        border-width: 0px;
-        position: absolute;
-        left: 142px;
-        top: 16px;
-        width: 140px;
-        height: 32px;
-        font-size: 20px;
-        color: #FFFFFF;
-        .system-name-bg{
-          border-width: 0px;
+      -moz-box-shadow:0px 3px 5px 0px rgba(218,218,218,0.5);
+      -webkit-box-shadow:0px 3px 5px 0px rgba(218,218,218,0.5);
+      box-shadow:0px 3px 5px 0px rgba(218,218,218,0.5);
+      .login-top-content{
+        position: relative;
+        width: 1000px;
+        height: 100%;
+        margin: 0 auto;
+        .system-logo{
           position: absolute;
-          left: 0px;
-          top: 0px;
-          width: 140px;
-          height: 32px;
-          background: inherit;
-          background-color: rgba(255, 255, 255, 0.458823529411765);
-          border: none;
-          border-radius: 4px;
-          -moz-box-shadow: none;
-          -webkit-box-shadow: none;
-          box-shadow: none;
-          font-size: 20px;
-          color: #FFFFFF;
+          left: 0;
+          top: 50%;
+          margin-top: -14.5px;
+          vertical-align: middle;
+          width:164px;
+          height:29px;
+          font-size:20px;
+          font-family:Helvetica;
+          color:rgba(51,51,51,1);
+          line-height:24px;
+          letter-spacing:3px;
+          display: table-cell;
+          vertical-align: middle;
         }
-        .system-name-text{
-          border-width: 0px;
+        .system-user{
           position: absolute;
-          left: 2px;
-          top: 3px;
-          width: 136px;
-          word-wrap: break-word;
-          transform-origin: 68px 13px 0px;
-          span{
-            letter-spacing: 4px;
+          right: 0;
+          top: 50%;
+          margin-top: -14.5px;
+          height:29px;
+          .system-user-content{
+            height: 100%;
+            display: table;
+            .system-user-cell{
+              display: table-cell;
+              vertical-align: middle;
+              img.user-avatar{
+                width: 29px;
+                height: 29px;
+                border-radius: 50%;
+              }
+              .user-set{
+                margin-left: 20px;
+              }
+              span{
+                display: inline-block;
+                height: 29px;
+                line-height: 29px;
+              }
+            }
           }
         }
       }
