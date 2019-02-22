@@ -310,9 +310,11 @@
                 width: 29px;
                 height: 29px;
                 border-radius: 50%;
+                vertical-align: middle;
               }
               .user-set{
-                margin-left: 20px;
+                vertical-align: middle;
+                margin-left: 40px;
               }
               span{
                 display: inline-block;
