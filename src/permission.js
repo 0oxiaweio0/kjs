@@ -22,7 +22,7 @@ router.beforeEach((to, from, next) => {
     /* has token*/
     if (to.path === '/login') {
       next({ path: '/' })
-      NProgress.done() // if current page is dashboard will not trigger	afterEach hook, so manually handle it
+      NProgress.done() // if current page is home will not trigger	afterEach hook, so manually handle it
     } else {
       if (hasPermission(store.getters.roles, to.meta.roles)) {
         next()//
