@@ -4,6 +4,7 @@ export default {
     personnelSchoolManage: '学校管理',
     personnelTeacherManage: '教师管理',
     personnelClassManage: '班级管理',
+    testPaperIndex: '主页',
     personnel: '人员管理',
     testPaper: '试卷管理',
     statistics: '统计报告',
