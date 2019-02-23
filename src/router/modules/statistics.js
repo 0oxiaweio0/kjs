@@ -7,14 +7,15 @@ const statisticsRouterMap = [
   /* 统计报告 */
   {
     path: '/statistics',
-    redirect: '/statistics/index',
     component: Layout,
+    redirect: 'noredirect',
     name: 'app.statistics',
     roles: ['superAdmin'],
     meta: {
       title: 'statistics',
       name: '统计报告',
-      group: 'statistics'
+      group: 'statistics',
+      icon: 'statistics'
     },
     children: [{
       path: 'index',
@@ -25,7 +26,7 @@ const statisticsRouterMap = [
         icon: 'statistics',
         title: 'statisticsIndex',
         group: 'statistics',
-        name: '人员管理'
+        name: '统计报告'
       }
     }
     ]

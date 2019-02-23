@@ -28,15 +28,14 @@
               <div class="login-from-title"><p>登&nbsp;&nbsp;&nbsp;&nbsp;录</p></div>
               <div class="login-from-body">
                 <el-form ref="form" :model="loginForm" label-width="80px">
-                  <el-form-item label="用户名:">
-                    <el-input v-model="loginForm.username"></el-input>
+                  <el-form-item>
+                    <el-input v-model="loginForm.username" placeholder="请输入手机号"></el-input>
                   </el-form-item>
-                  <el-form-item label="密码:">
-                    <el-input type="password" v-model="loginForm.password"></el-input>
+                  <el-form-item>
+                    <el-input type="password" v-model="loginForm.password"  placeholder="请输入密码"></el-input>
                   </el-form-item>
                   <el-form-item>
                     <el-button type="primary" @click="handleLogin()">登录</el-button>
-                    <el-button type="primary" @click="handleCancel()">取消</el-button>
                   </el-form-item>
                 </el-form>
               </div>
@@ -156,7 +155,7 @@
     }
     .el-button--medium{
       border-width: 0px;
-      width: 120px;
+      width: 100%;
       height: 40px;
       background: inherit;
       background-color: rgba(22, 155, 213, 1);

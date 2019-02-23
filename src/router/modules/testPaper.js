@@ -14,7 +14,8 @@ const testPaperRouterMap = [
     meta: {
       title: 'testPaper',
       name: '试卷管理',
-      group: 'testPaper'
+      group: 'testPaper',
+      icon: 'paper'
     },
     children: [{
       path: 'index',
@@ -31,6 +32,7 @@ const testPaperRouterMap = [
       path: 'list/:class/:type',
       component: () => import('@/views/testPaper/list'),
       name: 'app.testPaper.list',
+      hidden: true,
       roles: ['superAdmin'],
       meta: {
         title: 'testPaperList',
@@ -46,7 +48,8 @@ const testPaperRouterMap = [
         title: 'testPaperAdd',
         group: 'testPaper',
         name: '试卷添加'
-      }
+      },
+      hidden: true
     }
     ]
   }

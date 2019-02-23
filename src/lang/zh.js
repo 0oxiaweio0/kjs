@@ -1,5 +1,9 @@
 export default {
   route: {
+    home: '欢迎使用金典教育系统',
+    personnelSchoolManage: '学校管理',
+    personnelTeacherManage: '教师管理',
+    personnelClassManage: '班级管理',
     personnel: '人员管理',
     testPaper: '试卷管理',
     statistics: '统计报告',

@@ -5,11 +5,10 @@
       :show-timeout="200"
       :default-active="$route.path"
       :collapse="isCollapse"
-      background-color="rgba(63, 63, 63, 1)"
+      background-color="rgba(50,53,61,1)"
       text-color="rgba(255, 255, 255, 0.447058823529412)"
       active-text-color="#FFFFFF"
     >
-      <div class="sys-logo"><div class="sys-logo-bg"><span>考卷网</span></div></div>
       <sidebar-item :routes="addRouters"></sidebar-item>
     </el-menu>
   </el-scrollbar>
@@ -21,6 +20,11 @@ import SidebarItem from './SidebarItem'
 
 export default {
   components: { SidebarItem },
+  data() {
+    return {
+      systemName: this.$store.state.app.systemName
+    }
+  },
   computed: {
     ...mapGetters([
       'addRouters',
@@ -64,7 +68,6 @@ export default {
   }
   }
   .menu-wrapper{
-    margin-top: 80px;
     .router-link-active{
       background-color: rgba(16, 141, 233, 1);
     }

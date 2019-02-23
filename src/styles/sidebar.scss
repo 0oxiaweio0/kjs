@@ -89,6 +89,9 @@
       background-color: $menuHover !important;
     }
   }
+  .sidebar-container .el-menu-item.is-active{
+    background-color: rgba(33,32,36,1)!important;
+  }
   .el-menu--collapse .el-menu .el-submenu {
     min-width: 180px !important;
   }

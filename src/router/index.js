@@ -8,7 +8,7 @@ import testPaperRouterMap from './modules/testPaper'
 Vue.use(Router)
 
 /* Layout */
-// import Layout from '@/views/layout/Layout'
+import Layout from '@/views/layout/Layout'
 
 /** note: submenu only apppear when children.length>=1
  *   detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -31,12 +31,27 @@ Vue.use(Router)
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
-  { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
-  { path: '/home', component: () => import('@/views/home/index') }
+  { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true }
 ]
 
 export const asyncRouterMap = [
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '',
+    component: Layout,
+    redirect: 'home',
+    meta: {
+      title: 'home',
+      icon: 'home',
+      name: '首页'
+    },
+    children: [{
+      path: 'home',
+      component: () => import('@/views/home/index'),
+      name: 'home',
+      meta: { title: 'home', icon: 'home', name: '首页' }
+    }]
+  }
 ].concat(testPaperRouterMap, personnelRouterMap, statisticsRouterMap)
 
 export default new Router({
