@@ -20,7 +20,7 @@ const personnelRouterMap = [
     children: [
       {
         path: 'school',
-        component: () => import('@/views/personnel/component/school'),
+        component: () => import('@/views/personnel/school'),
         name: 'app.personnel.school',
         roles: ['superAdmin'],
         meta: {
@@ -31,7 +31,7 @@ const personnelRouterMap = [
       },
       {
         path: 'class',
-        component: () => import('@/views/personnel/component/class'),
+        component: () => import('@/views/personnel/class'),
         name: 'app.personnel.class',
         roles: ['superAdmin'],
         meta: {
@@ -42,7 +42,7 @@ const personnelRouterMap = [
       },
       {
         path: 'teacher',
-        component: () => import('@/views/personnel/component/teacher'),
+        component: () => import('@/views/personnel/teacher'),
         name: 'app.personnel.teacher',
         roles: ['superAdmin'],
         meta: {
