@@ -89,18 +89,32 @@
 </script>
 <style rel="stylesheet/scss" lang="scss">
   .class-content{
-    .el-collapse-item{
-      position: relative;
-    }
-    .el-collapse-item.is-active:before{
-      position: absolute;
-      left:0;
-      height: 100%;
-      width: 2px;
-      content: "";
-      color:rgba(81,138,255,1);
-      background:rgba(81,138,255,1);
-      z-index: 100;
+    .el-collapse{
+      border: 0;
+      .el-collapse-item{
+        position: relative;
+        border: 1px solid #ebeef5;
+        margin-bottom: 20px;
+        .el-collapse-item__header{
+          border-bottom: 0;
+        }
+        .el-collapse-item__wrap{
+          border-bottom: 0;
+        }
+      }
+      .el-collapse-item.is-active{
+        border-left: 0;
+      }
+      .el-collapse-item.is-active:before{
+        position: absolute;
+        left:0;
+        height: 100%;
+        width: 2px;
+        content: "";
+        color:rgba(81,138,255,1);
+        background:rgba(81,138,255,1);
+        z-index: 100;
+      }
     }
   }
 </style>
