@@ -1,22 +1,15 @@
 <template>
-  <div>
-    <el-row >
-      <el-col :xs="12" :sm="4" :md="4" :lg="4" class="paper-add">
-        <el-button type="info">
-          <router-link :to="{name:'app.testPaper.paperAdd'}">添加班级</router-link>
-        </el-button>
-      </el-col>
-      <el-col :xs="12" :sm="20" :md="20" :lg="20" class="paper-search">
-        <el-input
-          size="medium"
-          placeholder="搜素班级"
-          suffix-icon="el-icon-search"
-        >
-        </el-input>
-      </el-col>
-    </el-row>
+  <div class="class-content">
     <div class="table-content">
-      <div class="table-content-title">班级列表</div>
+      <div class="query-cotent">
+        <el-row :gutter="20">
+          <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add" style="float: right">
+            <el-button type="primary" @click="showAdd">
+              添加班级
+            </el-button>
+          </el-col>
+        </el-row>
+      </div>
       <el-collapse v-model="activeName" @change="handleChange" accordion>
         <el-collapse-item title="成都树德中学" name="1">
           <el-table
@@ -40,7 +33,7 @@
             </el-table-column>
             <el-table-column
               prop="pass"
-              label="教师"
+              label="班主任"
             >
             </el-table-column>
             <el-table-column
@@ -76,10 +69,10 @@
 
 <script>
   export default {
-    name: 'app.personnel.manage.class',
     components: { },
     data() {
       return {
+        show: false,
         activeName: '1',
         paperData: []
       }
@@ -87,7 +80,30 @@
     methods: {
       handleChange(val) {
         console.log(val)
+      },
+      showAdd() {
+        this.show = !this.show
       }
     }
   }
 </script>
+<style rel="stylesheet/scss" lang="scss">
+  .class-content{
+    .el-collapse-item{
+      position: relative;
+    }
+    .el-collapse-item.is-active:before{
+      position: absolute;
+      left:0;
+      height: 100%;
+      width: 2px;
+      content: "";
+      color:rgba(81,138,255,1);
+      background:rgba(81,138,255,1);
+      z-index: 100;
+    }
+  }
+</style>
+<style rel="stylesheet/scss" lang="scss" scoped>
+
+</style>
