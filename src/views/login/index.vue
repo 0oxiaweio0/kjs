@@ -57,7 +57,7 @@
     name: 'login',
     data() {
       return {
-        debug: true,
+        debug: false,
         systemName: this.$store.state.app.systemName,
         login_logo,
         userGif,
@@ -100,21 +100,15 @@
         } else {
           params['username'] = this.loginForm.username
           params['password'] = this.loginForm.password
+          params['grant_type'] = this.loginForm.password
           this.$store.dispatch('LoginByUsername', params).then(() => {
-            this.$store.dispatch('GetUserInfo', params).then(() => {
-              this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
-                if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
-                  this.$router.addRoutes(this.$store.state.permission.addRouters)
-                  this.$router.push({ path: '/testPaper' })
-                }
-              }).catch(function(err) {
-                console.log(err)
-              })
+            this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
+              if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
+                this.$router.addRoutes(this.$store.state.permission.addRouters)
+                this.$router.push({ path: '/home' })
+              }
             }).catch(function(err) {
-              this.$message({
-                message: err.message,
-                type: 'error'
-              })
+              console.log(err)
             })
           }).catch(() => {
             this.loading = false
