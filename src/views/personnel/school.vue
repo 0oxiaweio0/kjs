@@ -13,7 +13,7 @@
         </div>
         <div class="el-tabs-content">
           <el-table
-            :data="paperData"
+            :data="tableData"
             border
           >
             <el-table-column
@@ -61,6 +61,7 @@
 </template>
 
 <script>
+  import { getSchool } from '@/api/person'
   import { schoolAdd } from './component'
   export default {
     components: { schoolAdd },
@@ -68,7 +69,7 @@
       return {
         show: false,
         activeTab: 'first',
-        paperData: [
+        tableData: [
           { NO: '01', name: '新都中学', address: '四川省成都市', tips: '57、sss' },
           { NO: '02', name: '新都中学02', address: '四川省成都市', tips: '成都一中' }
         ]
@@ -80,7 +81,24 @@
       },
       showAdd() {
         this.show = !this.show
+      },
+      handleGetTableData() {
+        const that = this
+        getSchool().then(function(res) {
+          if (res.data.errorcode === 0) {
+            that.tableData = res.data.data
+            that.pageInfo = res.data.pageInfo
+          } else {
+            that.$message({
+              message: res.data.errormsg,
+              type: 'error'
+            })
+          }
+        })
       }
+    },
+    created() {
+      this.handleGetTableData(this.queryData)
     }
   }
 </script>

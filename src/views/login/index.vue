@@ -90,9 +90,9 @@
           // 跳过登录进入测试模块
           this.$store.dispatch('GenerateRoutes', roles).then(() => {
             if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
-              Cookies.set('User-Token', '123456789')
+              Cookies.set('Authorization', '123456789')
               this.$router.addRoutes(this.$store.state.permission.addRouters)
-              this.$router.push({ path: '/testPaper' })
+              this.$router.push({ path: '/home' })
             }
           }).catch(function(err) {
             console.log(err)
@@ -100,7 +100,7 @@
         } else {
           params['username'] = this.loginForm.username
           params['password'] = this.loginForm.password
-          params['grant_type'] = this.loginForm.password
+          params['grant_type'] = 'password'
           this.$store.dispatch('LoginByUsername', params).then(() => {
             this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
               if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {

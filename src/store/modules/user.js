@@ -33,9 +33,10 @@ const user = {
     LoginByUsername({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
-          setToken(response.data.token)
+          const data = response.data.data
+          console.log(data)
+          commit('SET_TOKEN', data.token.access_token)
+          setToken(data.token.access_token)
           resolve()
         }).catch(error => {
           reject(error)
