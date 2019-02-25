@@ -1,5 +1,5 @@
 import { loginByUsername, logout, getUserInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
+import { getToken, setToken, removeToken, getTokenType, setTokenType, removeTokenType } from '@/utils/auth'
 
 const user = {
   state: {
@@ -7,6 +7,7 @@ const user = {
     status: '',
     code: '',
     token: getToken(),
+    tokenType: getTokenType(),
     roles: ['superAdmin']
   },
 
@@ -16,6 +17,9 @@ const user = {
     },
     SET_TOKEN: (state, token) => {
       state.token = token
+    },
+    SET_TOKEN_TYPE: (state, tokenType) => {
+      state.tokenType = tokenType
     },
     SET_STATUS: (state, status) => {
       state.status = status
@@ -36,7 +40,9 @@ const user = {
           const data = response.data.data
           console.log(data)
           commit('SET_TOKEN', data.token.access_token)
+          commit('SET_TOKEN_TYPE', data.token.token_type)
           setToken(data.token.access_token)
+          setTokenType(data.token.token_type)
           resolve()
         }).catch(error => {
           reject(error)
@@ -69,8 +75,10 @@ const user = {
       return new Promise((resolve, reject) => {
         logout(state.token).then(() => {
           commit('SET_TOKEN', '')
+          commit('SET_TOKEN_TYPE', '')
           commit('SET_ROLES', [])
           removeToken()
+          removeTokenType()
           resolve()
         }).catch(error => {
           reject(error)
