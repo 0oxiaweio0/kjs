@@ -11,7 +11,11 @@
         </el-row>
       </div>
       <el-collapse v-model="activeName" @change="handleChange" accordion>
-        <el-collapse-item title="成都树德中学" name="1">
+        <el-collapse-item name="1">
+          <template slot="title" class="el-collapse-title-content">
+            <img :src="schoolPng" alt="学校图标">
+            <span>成都树德中学</span>
+          </template>
           <el-table
             :data="paperData"
             border
@@ -56,11 +60,17 @@
             </el-table-column>
           </el-table>
         </el-collapse-item>
-        <el-collapse-item title="成都十七中" name="2">
-
+        <el-collapse-item name="2">
+          <template slot="title" class="el-collapse-title-content">
+            <img :src="schoolPng" alt="学校图标">
+            <span>成都十七中</span>
+          </template>
         </el-collapse-item>
-        <el-collapse-item title="新都中学" name="3">
-
+        <el-collapse-item name="3">
+          <template slot="title" class="el-collapse-title-content">
+            <img :src="schoolPng" alt="学校图标">
+            <span>新都中学</span>
+          </template>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -68,10 +78,12 @@
 </template>
 
 <script>
+  import schoolPng from '@/assets/icon/school.png'
   export default {
     components: { },
     data() {
       return {
+        schoolPng,
         show: false,
         activeName: '1',
         paperData: []
@@ -94,9 +106,22 @@
       .el-collapse-item{
         position: relative;
         border: 1px solid #ebeef5;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         .el-collapse-item__header{
           border-bottom: 0;
+          text-align: left;
+          text-indent: 10px;
+          position: relative;
+          vertical-align: middle;
+          img{
+            display: inline-block;
+            vertical-align: middle;
+          }
+          span{
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 100%;
+          }
         }
         .el-collapse-item__wrap{
           border-bottom: 0;
