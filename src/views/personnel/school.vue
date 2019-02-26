@@ -17,7 +17,7 @@
             border
           >
             <el-table-column
-              prop="NO"
+              prop="id"
               label="编号"
             >
             </el-table-column>
@@ -69,10 +69,7 @@
       return {
         show: false,
         activeTab: 'first',
-        tableData: [
-          { NO: '01', name: '新都中学', address: '四川省成都市', tips: '57、sss' },
-          { NO: '02', name: '新都中学02', address: '四川省成都市', tips: '成都一中' }
-        ]
+        tableData: []
       }
     },
     methods: {
@@ -85,12 +82,12 @@
       handleGetTableData() {
         const that = this
         getSchool().then(function(res) {
-          if (res.data.errorcode === 0) {
-            that.tableData = res.data.data
-            that.pageInfo = res.data.pageInfo
+          console.log(res)
+          if (res.data.code === 200) {
+            that.tableData = res.data.data.schools
           } else {
             that.$message({
-              message: res.data.errormsg,
+              message: res.data.message,
               type: 'error'
             })
           }
