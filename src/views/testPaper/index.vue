@@ -141,7 +141,6 @@
       a{
         margin-right: 10px;
         display: inline-block;
-        width:48px;
         height:12px;
         font-size:12px;
         font-family:PingFangSC-Regular;
