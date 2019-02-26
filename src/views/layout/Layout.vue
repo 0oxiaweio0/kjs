@@ -17,11 +17,9 @@
                 <i class="el-icon-caret-bottom"></i>
               </div>
               <el-dropdown-menu slot="dropdown">
-                <router-link to="/">
-                  <el-dropdown-item>
-                    修改密码
-                  </el-dropdown-item>
-                </router-link>
+                <el-dropdown-item>
+                  <span @click="showEditPassWord">修改密码</span>
+                </el-dropdown-item>
                 <el-dropdown-item divided>
                   <span @click="logout" style="display:block;">退出登录</span>
                 </el-dropdown-item>
@@ -33,6 +31,7 @@
           </div>
           <div class="right-menu-cell">
             <span class="set-span">设置</span>
+            <i class="el-icon-caret-bottom"></i>
           </div>
         </div>
       </div>
@@ -47,6 +46,7 @@
         </div>
       </div>
     </div>
+    <edit-password v-if="show" person-id=""></edit-password>
   </div>
 </template>
 
@@ -56,6 +56,7 @@ import userGif from '@/assets/user.gif'
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import Screenfull from '@/components/Screenfull'
+import editPassword from '@/components/editPassword'
 
 export default {
   name: 'layout',
@@ -63,12 +64,14 @@ export default {
     Navbar,
     Sidebar,
     AppMain,
-    Screenfull
+    Screenfull,
+    editPassword
   },
   data() {
     return {
       userGif,
-      userSet
+      userSet,
+      show: false
     }
   },
   mixins: [ResizeMixin],
@@ -90,6 +93,10 @@ export default {
   methods: {
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
+    },
+    showEditPassWord() {
+      this.show = !this.show
+      console.log(this.show)
     },
     logout() {
       this.$store.dispatch('LogOut').then(() => {

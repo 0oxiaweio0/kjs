@@ -23,7 +23,13 @@ export default {
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .app-main{
-    margin: 20px;
+    margin: 0px 0 50px 20px;
+    padding-right: 20px;
+    padding-top: 20px;
     background-color: #ffffff;
+    height: 100%;
+    min-height: 100%!important;
+    overflow: hidden;
+    overflow-y: auto;
   }
 </style>

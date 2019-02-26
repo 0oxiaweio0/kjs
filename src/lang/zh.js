@@ -7,6 +7,8 @@ export default {
     testPaperIndex: '主页',
     personnel: '人员管理',
     testPaper: '试卷管理',
+    testPaperList: '试卷列表',
+    testPaperAdd: '试卷添加',
     statistics: '统计报告',
     errorPages: '错误页面',
     page401: '401',

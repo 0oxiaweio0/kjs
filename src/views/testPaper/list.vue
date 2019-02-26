@@ -1,58 +1,48 @@
 <template>
   <div class="test-paper-list-content">
+    <div class="query-cotent">
+      <el-row :gutter="20">
+        <el-col :xs="16" :sm="16" :md="16" :lg="16" class="paper-search">
+          <el-input
+            size="medium"
+            placeholder="搜素试卷"
+            suffix-icon="el-icon-search"
+          >
+          </el-input>
+        </el-col>
+        <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add">
+          <el-button type="primary">
+            <router-link :to="{name:'app.testPaper.paperAdd'}">添加试卷</router-link>
+          </el-button>
+        </el-col>
+      </el-row>
+    </div>
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="5" :md="4" :lg="4" >
-        <el-row :gutter="20">
-          <el-breadcrumb separator="/">
-            <el-breadcrumb-item :to="{ path: '/testPaper' }">初一</el-breadcrumb-item>
-            <el-breadcrumb-item><a>上期</a></el-breadcrumb-item>
-          </el-breadcrumb>
-        </el-row>
-      </el-col>
-      <el-col :xs="24" :sm="19" :md="20" :lg="20" class="search-content">
-        <el-row >
-          <el-col :xs="12" :sm="4" :md="4" :lg="4" class="paper-add">
-            <el-button type="info">
-              <router-link :to="{name:'app.testPaper.paperAdd'}">添加试卷</router-link>
-              </el-button>
-          </el-col>
-          <el-col :xs="12" :sm="20" :md="20" :lg="20" class="paper-search">
-            <el-input
-              size="medium"
-              placeholder="搜素试卷"
-              suffix-icon="el-icon-search"
-            >
-            </el-input>
-          </el-col>
-        </el-row>
-      </el-col>
-    </el-row>
-    <el-row :gutter="20">
-      <el-col :xs="24" :sm="5" :md="4" :lg="4" >
+      <el-col :xs="24" :sm="24" :md="24" :lg="24" >
         <el-row :gutter="0" class="statistics-total">
-          <el-card class="box-card">
-            <div slot="header" class="clearfix">
-              <span>试卷汇总</span>
-            </div>
-            <div class="text item">
-              <span>试卷总数:</span><span>50</span>
-            </div>
-            <div class="text item">
-              <span>使用学校数:</span><span>10</span>
-            </div>
-            <div class="text item">
-              <span>使用班级数:</span><span>60</span>
-            </div>
-            <div class="text item">
-              <span>总考试人数:</span><span>1800</span>
-            </div>
-            <div class="text item">
-              <span>总及格率:</span><span>75%</span>
-            </div>
-          </el-card>
+          <el-col :xs="24" :sm="8" :md="8" :lg="8">
+            <p class="title-bold">初一年级上册试卷列表</p>
+            <span class="title-span">Grade One</span>
+          </el-col>
+          <el-col :xs="24" :sm="4" :md="4" :lg="4">
+            <p class="title-bold">50</p>
+            <span class="title-span">试卷总数</span>
+          </el-col>
+          <el-col :xs="24" :sm="4" :md="4" :lg="4">
+            <p class="title-bold">10</p>
+            <span class="title-span">使用学校数</span>
+          </el-col>
+          <el-col :xs="24" :sm="4" :md="4" :lg="4">
+            <p class="title-bold">60</p>
+            <span class="title-span">使用班级数</span>
+          </el-col>
+          <el-col :xs="24" :sm="4" :md="4" :lg="4">
+            <p class="title-bold">100</p>
+            <span class="title-span">总考试人数</span>
+          </el-col>
         </el-row>
       </el-col>
-      <el-col :xs="24" :sm="19" :md="20" :lg="20" >
+      <el-col :xs="24" :sm="24" :md="24" :lg="24" >
         <div class="table-content">
           <el-table
             :data="paperData"
@@ -139,6 +129,7 @@
 </script>
 <style rel="stylesheet/scss" lang="scss">
   .test-paper-list-content{
+    text-align: right;
     .el-row{
       margin: 10px 0;
     }
@@ -155,8 +146,24 @@
     }
     .statistics-total{
       margin: 0 auto;
-      .Breadcrumb{
-        text-align: center;
+      padding: 20px;
+      background:linear-gradient(150deg,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 100%);
+      box-shadow:0px 2px 4px 0px rgba(235,241,255,1);
+      border:1px solid rgba(239,239,239,1);
+      .title-bold{
+        font-size:22px;
+        font-family:PingFangSC-Semibold;
+        font-weight:600;
+        color:rgba(51,51,51,1);
+        line-height:30px;
+        margin: 0;
+      }
+      .title-span{
+        font-size:12px;
+        font-family:PingFangSC-Regular;
+        font-weight:400;
+        color:rgba(182,182,182,1);
+        line-height:12px;
       }
       .el-col{
         margin: 5px 0;
@@ -185,16 +192,11 @@
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .test-paper-list-content{
-    padding: 20px;
     .statistics-total{
       text-align: center;
     }
     .table-content{
-      border: 1px solid #ebebeb;
-      border-radius: 3px;
-      transition: .2s;
-      padding: 20px;
-      box-shadow: 0 0 8px 0 rgba(232,237,250,.6),0 2px 4px 0 rgba(232,237,250,.5);
+      margin-top: 10px;
 
     }
 
