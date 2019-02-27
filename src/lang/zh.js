@@ -11,6 +11,8 @@ export default {
     testPaperAdd: '试卷添加',
     statistics: '统计报告',
     errorPages: '错误页面',
+    admin: '管理操作',
+    adminManage: '管理员管理',
     page401: '401',
     page404: '404',
     errorLog: '错误日志',

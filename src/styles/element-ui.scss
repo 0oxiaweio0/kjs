@@ -107,11 +107,14 @@
    .el-row{
      display: table-cell;
      text-align: right;
-     width: 300px;
+     width: 400px;
      margin-left: 0!important;
      margin-right: 0!important;
      [class*=el-col-]{
        padding-left: 0!important;
+     }
+     .paper-add{
+       padding-right: 0!important;
      }
    }
  }

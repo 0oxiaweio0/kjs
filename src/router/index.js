@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import personnelRouterMap from './modules/personnel'
 import statisticsRouterMap from './modules/statistics'
 import testPaperRouterMap from './modules/testPaper'
+import adminRouterMap from './modules/superAdmin'
 
 Vue.use(Router)
 
@@ -52,7 +53,7 @@ export const asyncRouterMap = [
       meta: { title: 'home', icon: 'home', name: '首页' }
     }]
   }
-].concat(testPaperRouterMap, personnelRouterMap, statisticsRouterMap)
+].concat(testPaperRouterMap, personnelRouterMap, statisticsRouterMap, adminRouterMap)
 
 export default new Router({
   // mode: 'history', // require service support
