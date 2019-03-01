@@ -27,11 +27,18 @@
             </el-dropdown>
           </div>
           <div class="right-menu-cell">
-            <img class="user-set" :src="userSet">
-          </div>
-          <div class="right-menu-cell">
-            <span class="set-span">设置</span>
-            <i class="el-icon-caret-bottom"></i>
+            <el-dropdown class="avatar-container right-menu-item" trigger="click" style="line-height: 40px">
+              <div class="avatar-wrapper">
+                <img class="user-set" :src="userSet">
+                <span>设置</span>
+                <i class="el-icon-caret-bottom"></i>
+              </div>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>
+                  <router-link to="/admin">管理员管理</router-link>
+                </el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </div>
         </div>
       </div>
