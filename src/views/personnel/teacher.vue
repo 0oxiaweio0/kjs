@@ -121,11 +121,16 @@
         </div>
       </template>
     </div>
-    <teacher-add v-if="show" :teacher-show="show"></teacher-add>
+    <teacher-add
+      v-if="show"
+      @add-teacher="addTeacher"
+      :teacher-show="show">
+    </teacher-add>
   </div>
 </template>
 
 <script>
+  import { getTeacherAll, addTeacher } from '@/api/person'
   import { teacherAdd } from './component'
   export default {
     components: { teacherAdd },
@@ -139,12 +144,36 @@
         ]
       }
     },
+    created() {
+      this.getTeacherAll()
+    },
     methods: {
+      getTeacherAll(type) {
+        getTeacherAll().then().catch()
+      },
       handleClick(tab, event) {
         console.log(tab, event)
       },
       showAdd() {
         this.show = !this.show
+      },
+      addTeacher(data) {
+        const that = this
+        addTeacher(data).then(function(res) {
+          if (res.data.code === 200) {
+            that.handleGetTableData()
+          } else {
+            this.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        }).catch(function(res) {
+          this.$message({
+            message: res.data.message,
+            type: 'error'
+          })
+        })
       }
     }
   }

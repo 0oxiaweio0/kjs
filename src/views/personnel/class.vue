@@ -78,6 +78,7 @@
 </template>
 
 <script>
+  import { getClassList } from '@/api/person'
   import schoolPng from '@/assets/icon/school.png'
   export default {
     components: { },
@@ -93,9 +94,25 @@
       handleChange(val) {
         console.log(val)
       },
+      handleClassData() {
+        const that = this
+        getClassList().then(function(res) {
+          if (res.data.code === 200) {
+            that.tableData = res.data.data.schools
+          } else {
+            that.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        })
+      },
       showAdd() {
         this.show = !this.show
       }
+    },
+    created() {
+      this.handleClassData()
     }
   }
 </script>

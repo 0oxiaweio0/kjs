@@ -11,12 +11,15 @@
           </button>
         </div>
         <div class="el-message-box__content">
-          <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="学校名称">
-              <el-input v-model="form.name"></el-input>
+          <el-form ref="form"
+                   :rules="rules"
+                   :model="form"
+                   label-width="80px">
+            <el-form-item label="学校名称" prop="school_name">
+              <el-input v-model="form.school_name"  placeholder="学校名称"></el-input>
             </el-form-item>
-            <el-form-item label="学校地址">
-              <el-row :gutter="10">
+            <el-form-item label="学校地址" prop="school_address">
+            <!--  <el-row :gutter="10">
                 <el-col :xs="7" :sm="7" :md="7" :lg="7" style="margin-bottom: 22px">
                   <el-select v-model="form.shen" filterable placeholder="省">
                     <el-option
@@ -48,18 +51,19 @@
                   </el-select>
                 </el-col>
                 <el-col :xs="24" :sm="24" :md="24" :lg="24">
-                  <el-input v-model="form.address" placeholder="详细地址"></el-input>
+                  <el-input v-model="form.school_address" placeholder="详细地址"></el-input>
                 </el-col>
-              </el-row>
+              </el-row>-->
+              <el-input v-model="form.school_address" placeholder="详细地址"></el-input>
             </el-form-item>
             <el-form-item label="备注">
-              <el-input v-model="form.password"></el-input>
+              <el-input v-model="form.school_comment"></el-input>
             </el-form-item>
           </el-form>
         </div>
         <div class="el-message-box__btns">
-          <button type="button" class="el-button el-button--default el-button--small"><span>取消</span></button>
-          <button type="button" class="el-button el-button--default el-button--small el-button--primary "><span>添加</span></button>
+          <button type="button" class="el-button el-button--default el-button--small" @click="closeBox"><span>取消</span></button>
+          <button type="button" class="el-button el-button--default el-button--small el-button--primary " :disabled="isDisabled" @click="submit"><span >添加</span></button>
         </div>
       </div>
     </div>
@@ -73,19 +77,39 @@
     components: { },
     data() {
       return {
+        isDisabled: false,
         form: {
-          name: '',
-          shen: '',
-          shi: '',
-          qu: '',
-          address: '',
-          password: ''
+          school_name: '',
+          school_address: '',
+          school_comment: '',
+          school_education_level: 1
+        },
+        rules: {
+          school_name: [
+            { required: true, message: '请输入学校名称', trigger: 'blur' }
+          ],
+          school_address: [
+            { required: true, message: '请输入学校地址', trigger: 'blur' }
+          ]
         }
       }
     },
     methods: {
       closeBox() {
         this.$parent.show = !this.$parent.show
+      },
+      submit() {
+        this.isDisabled = true
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            this.$emit('add-school', this.form)
+            this.isDisabled = false
+            this.closeBox()
+          } else {
+            this.isDisabled = false
+            return false
+          }
+        })
       }
     }
   }

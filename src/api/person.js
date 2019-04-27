@@ -10,10 +10,11 @@ export function getTeacherAll() {
   })
 }
 /* 添加教师*/
-export function addTeacher() {
+export function addTeacher(data) {
   return request({
     url: '/sys/tmg',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 /* 获取班级列表*/
@@ -24,10 +25,11 @@ export function getClassList() {
   })
 }
 /* 添加学校*/
-export function addSchool() {
+export function addSchool(data) {
   return request({
     url: '/sys/school',
-    method: 'post'
+    method: 'post',
+    data
   })
 }
 /* 获取学校列表*/
