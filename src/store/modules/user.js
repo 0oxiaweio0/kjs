@@ -1,10 +1,11 @@
-import { loginByUsername, logout, getUserInfo } from '@/api/login'
+import { loginByUsername, logout, getUserInfo, getBaseCode } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
   state: {
-    user: '',
+    user: null,
     status: '',
+    resCode: null,
     code: '',
     token: getToken(),
     roles: ['superAdmin']
@@ -20,11 +21,14 @@ const user = {
     SET_STATUS: (state, status) => {
       state.status = status
     },
-    SET_NAME: (state, name) => {
-      state.name = name
+    SET_USER: (state, user) => {
+      state.user = user
     },
     SET_ROLES: (state, roles) => {
       state.roles = roles
+    },
+    SET_RESCODE: (state, resCode) => {
+      state.resCode = resCode
     }
   },
 
@@ -34,10 +38,23 @@ const user = {
       return new Promise((resolve, reject) => {
         loginByUsername(userInfo).then(response => {
           const data = response.data.data
-          const token = data.token.token_type + ' ' + data.token.access_token
-          console.log(data)
+          const token = 'admin'
           commit('SET_TOKEN', token)
+          commit('SET_USER', data.login)
           setToken(token)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    // 获取基础资源
+    GetBaseInfo({ commit }) {
+      return new Promise((resolve, reject) => {
+        getBaseCode().then(response => {
+          const resCode = response.data.data.items
+          console.log(resCode)
+          commit('SET_RESCODE', resCode)
           resolve()
         }).catch(error => {
           reject(error)

@@ -32,7 +32,7 @@
             >
             </el-table-column>
             <el-table-column
-              prop="tips"
+              prop="comment"
               label="备注"
             >
             </el-table-column>
@@ -82,7 +82,6 @@
       handleGetTableData() {
         const that = this
         getSchool().then(function(res) {
-          console.log(res)
           if (res.data.code === 200) {
             that.tableData = res.data.data.schools
           } else {

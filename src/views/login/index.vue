@@ -56,7 +56,6 @@
   import userGif from '@/assets/user.gif'
   import BG from '@/assets/bg.jpg'
   import login_logo from '@/assets/login/u581.jpg'
-  import Cookies from 'js-cookie'// 用于测试设置token后续删除
   export default {
     components: { },
     name: 'login',
@@ -77,7 +76,6 @@
     methods: {
       handleLogin() {
         let params = {}
-        const roles = ['superAdmin']
         if (!this.loginForm.username) {
           this.$message({
             message: '用户名不能为空',
@@ -92,34 +90,21 @@
           })
           return
         }
-        if (this.debug) {
-          // 跳过登录进入测试模块
-          this.$store.dispatch('GenerateRoutes', roles).then(() => {
+        params['username'] = this.loginForm.username
+        params['password'] = this.loginForm.password
+        this.$store.dispatch('LoginByUsername', params).then(() => {
+          this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
             if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
-              Cookies.set('Authorization', '123456789')
               this.$router.addRoutes(this.$store.state.permission.addRouters)
               this.$router.push({ path: '/home' })
             }
+            this.$store.dispatch('GetBaseInfo').then()
           }).catch(function(err) {
             console.log(err)
           })
-        } else {
-          params['username'] = this.loginForm.username
-          params['password'] = this.loginForm.password
-          params['grant_type'] = 'password'
-          this.$store.dispatch('LoginByUsername', params).then(() => {
-            this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
-              if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
-                this.$router.addRoutes(this.$store.state.permission.addRouters)
-                this.$router.push({ path: '/home' })
-              }
-            }).catch(function(err) {
-              console.log(err)
-            })
-          }).catch(() => {
-            this.loading = false
-          })
-        }
+        }).catch(() => {
+          this.loading = false
+        })
         params = null
       },
       handleCancel() {
@@ -130,7 +115,6 @@
     created() {
     },
     destroyed() {
-      // window.removeEventListener('hashchange', this.afterQRScan)
     }
   }
 </script>

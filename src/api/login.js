@@ -1,15 +1,12 @@
 import request from '@/utils/request'
-import qs from 'Qs'
+// import qs from 'Qs'
 
 export function loginByUsername(data) {
-  const postData = qs.stringify(data)
+  // const postData = qs.stringify(data)
   return request({
-    url: '/api/v1/oauth/token',
+    url: '/sys/login',
     method: 'post',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    data: postData
+    data
   })
 }
 
@@ -25,6 +22,12 @@ export function getUserInfo(token) {
     url: '/user/info',
     method: 'get',
     params: { token }
+  })
+}
+export function getBaseCode() { // 基础数据编码
+  return request({
+    url: '/sys/bsvc',
+    method: 'get'
   })
 }
 
