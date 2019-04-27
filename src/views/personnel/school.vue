@@ -38,7 +38,7 @@
               label="备注"
             >
             </el-table-column>
-            <el-table-column
+   <!--         <el-table-column
               label="管理操作"
               fixed="right"
               width="190"
@@ -53,7 +53,7 @@
                   type="danger"
                   @click="handleDelClick(scope.$index, scope.row)">删除</el-button>
               </template>
-            </el-table-column>
+            </el-table-column>-->
           </el-table>
         </div>
       </template>

@@ -163,13 +163,13 @@
           if (res.data.code === 200) {
             that.handleGetTableData()
           } else {
-            this.$message({
+            that.$message({
               message: res.data.message,
               type: 'error'
             })
           }
         }).catch(function(res) {
-          this.$message({
+          that.$message({
             message: res.data.message,
             type: 'error'
           })
