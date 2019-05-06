@@ -11,7 +11,9 @@
             </el-col>
           </el-row>
         </div>
-        <div class="el-tabs-content">
+        <div class="el-tabs-content"
+             v-loading="loading"
+             element-loading-text="拼命加载中">
           <el-table
             :data="tableData"
             border
@@ -22,13 +24,13 @@
             >
             </el-table-column>
             <el-table-column
-              prop="name"
+              prop="uname"
               label="账号"
             >
             </el-table-column>
             <el-table-column
-              prop="address"
-              label="学校地址"
+              prop="role_name"
+              label="角色"
             >
             </el-table-column>
             <el-table-column
@@ -40,37 +42,95 @@
                 <el-button
                   size="mini"
                   type="primary"
-                  @click="handleClick(scope.$index, scope.row)">修改密码</el-button>
+                  @click="handleClick('editPwd',scope.row)">修改密码</el-button>
                 <el-button
+                  v-if="scope.row.status!==1"
                   size="mini"
                   type="danger"
-                  @click="handleClick(scope.$index, scope.row)">冻结</el-button>
+                  @click="handleClick('lock',scope.row)">冻结</el-button>
+                <el-button
+                  v-if="scope.row.status===1"
+                  size="mini"
+                  type="success"
+                  @click="handleClick('unlock',scope.row)">解冻</el-button>
               </template>
             </el-table-column>
           </el-table>
         </div>
       </template>
     </div>
-    <edit-password v-if="show" tperson-id=""></edit-password>
-    <admin-add v-if="adminShow"></admin-add>
+    <edit-password v-if="show" :person-data="selectData"
+                   @edit-password="editPassword"></edit-password>
+    <admin-add v-if="adminShow"
+               @add-admin="addAdmin"></admin-add>
   </div>
 </template>
 
 <script>
   import editPassword from '@/components/editPassword'
+  import { getManagerList, addAdmin, lockAdmin, unlockAdmin, editPwd, editSupPwd } from '@/api/person'
   import adminAdd from './components/adminAdd'
   export default {
     components: { editPassword, adminAdd },
     data() {
       return {
+        selectData: null,
+        loading: false,
         show: false,
         adminShow: false,
         tableData: []
       }
     },
     methods: {
-      handleClick(tab, event) {
-        console.log(tab, event)
+      handleClick(type, data) {
+        const that = this
+        if (type === 'lock') {
+          this.$confirm('此操作将冻结该账户, 是否继续?', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning'
+          }).then(() => {
+            lockAdmin(data.id).then(res => {
+              if (res.data.code === 200) {
+                this.$message({
+                  message: res.data.message,
+                  type: 'success'
+                })
+                that.handleGetTableData()
+              } else {
+                this.$message({
+                  message: res.data.message,
+                  type: 'error'
+                })
+              }
+            })
+          }).catch(() => {
+            this.$message({
+              type: 'info',
+              message: '已取消'
+            })
+          })
+        }
+        if (type === 'unlock') {
+          unlockAdmin(data.id).then(res => {
+            if (res.data.code === 200) {
+              this.$message({
+                message: res.data.message,
+                type: 'success'
+              })
+              that.handleGetTableData()
+            } else {
+              this.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        }
+        if (type === 'editPwd') {
+          this.selectData = data
+          this.show = true
+        }
       },
       showAdd() {
         this.show = !this.show
@@ -78,7 +138,70 @@
       showAdminAdd() {
         this.adminShow = !this.adminShow
       },
+      addAdmin(data) {
+        const that = this
+        addAdmin(data).then(function(res) {
+          if (res.data.code === 200) {
+            that.handleGetTableData()
+          } else {
+            that.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        })
+      },
+      editPassword(data) {
+        const that = this
+        if (this.selectData.sys_role_id !== 1) {
+          editPwd(data).then(function(res) {
+            if (res.data.code === 200) {
+              that.$message({
+                message: res.data.message,
+                type: 'success'
+              })
+            } else {
+              that.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        } else {
+          editSupPwd(data).then(function(res) {
+            if (res.data.code === 200) {
+              that.$message({
+                message: res.data.message,
+                type: 'success'
+              })
+            } else {
+              that.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        }
+      },
       handleGetTableData() {
+        this.loading = true
+        getManagerList().then(res => {
+          if (res.data.code === 200) {
+            this.tableData = res.data.data
+          } else {
+            this.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+          this.loading = false
+        }).catch(err => {
+          this.loading = false
+          this.$message({
+            message: err,
+            type: 'error'
+          })
+        })
       }
     },
     created() {

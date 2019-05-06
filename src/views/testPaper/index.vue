@@ -58,19 +58,22 @@
   import classData from '@/data/config/classData'
   export default {
     name: 'testPaperIndex',
+    components: { },
     data() {
       return {
       }
     },
     computed: {
       class1() {
-        return classData.filter(item => item.level === '1')
+        return classData.filter(item => item.level === 2)
       },
       class2() {
-        return classData.filter(item => item.level === '2')
+        return classData.filter(item => item.level === 1)
       }
     },
-    components: { }
+    created() {
+      console.log(this.$store.state.user.resCode)
+    }
   }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>

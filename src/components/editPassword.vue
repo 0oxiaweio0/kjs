@@ -11,24 +11,21 @@
           </button>
         </div>
         <div class="el-message-box__content">
-          <el-form ref="form" :model="form" label-width="80px">
-            <el-form-item label="用户名">
-              <el-input v-model="form.name"></el-input>
+          <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+            <el-form-item label="用户名" prop="user_name">
+              <el-input v-model="form.user_name" disabled></el-input>
             </el-form-item>
-            <el-form-item label="原密码">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="原密码" prop="old_pwd">
+              <el-input v-model="form.old_pwd" type="password"></el-input>
             </el-form-item>
-            <el-form-item label="新密码">
-              <el-input v-model="form.name"></el-input>
-            </el-form-item>
-            <el-form-item label="确认密码">
-              <el-input v-model="form.name"></el-input>
+            <el-form-item label="新密码" prop="new_pwd">
+              <el-input v-model="form.new_pwd" type="password"></el-input>
             </el-form-item>
           </el-form>
         </div>
         <div class="el-message-box__btns">
           <button type="button" class="el-button el-button--default el-button--small"><span>取消</span></button>
-          <button type="button" class="el-button el-button--default el-button--small el-button--primary "><span>确定</span></button>
+          <button type="button" class="el-button el-button--default el-button--small el-button--primary " :disabled="isDisabled" @click="submit"><span>确定</span></button>
         </div>
       </div>
     </div>
@@ -37,24 +34,54 @@
 <script>
   export default {
     name: 'editPassword',
-    props: ['boxShow'],
+    props: {
+      personData: {
+        type: Object,
+        default: null
+      }
+    },
     components: { },
     data() {
       return {
+        isDisabled: false,
         form: {
-          name: '',
-          shen: '',
-          shi: '',
-          qu: '',
-          address: '',
-          password: ''
+          user_name: '',
+          old_pwd: '',
+          new_pwd: ''
+        },
+        rules: {
+          user_name: [
+            { required: true, message: '用户名不能为空', trigger: 'blur' }
+          ],
+          old_pwd: [
+            { required: true, message: '请输入原密码', trigger: 'blur' }
+          ],
+          new_pwd: [
+            { required: true, message: '请输入新密码', trigger: 'blur' }
+          ]
         }
       }
     },
     methods: {
       closeBox() {
         this.$parent.show = !this.$parent.show
+      },
+      submit() {
+        this.isDisabled = true
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            this.$emit('edit-password', this.form)
+            this.isDisabled = false
+            this.closeBox()
+          } else {
+            this.isDisabled = false
+            return false
+          }
+        })
       }
+    },
+    created() {
+      this.form.user_name = this.personData.uname ? this.personData.uname : ''
     }
   }
 </script>

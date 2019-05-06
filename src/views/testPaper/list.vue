@@ -102,6 +102,7 @@
 <script>
   import tablePageConfig from '@/data/config/tablePageConfig'
   import paperData from '@/data/test/paperData'
+  import { getPapersList } from '@/api/testPaper'
   export default {
     name: 'testPaperList',
     data() {
@@ -124,6 +125,12 @@
     components: { },
     created() {
       console.log(this.$route.params)
+      getPapersList({
+        grade_id: this.$route.params.class,
+        book_id: this.$route.params.type,
+        page_num: 1,
+        page_per_count: 10
+      })
     }
   }
 </script>
