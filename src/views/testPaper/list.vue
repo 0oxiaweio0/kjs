@@ -124,9 +124,8 @@
     },
     components: { },
     created() {
-      console.log(this.$route.params)
       getPapersList({
-        grade_id: this.$route.params.class,
+        education_id: this.$route.params.class,
         book_id: this.$route.params.type,
         page_num: 1,
         page_per_count: 10

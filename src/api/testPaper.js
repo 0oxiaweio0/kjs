@@ -7,3 +7,26 @@ export function getPapersList(params) {
     params
   })
 }
+/* 添加知识点*/
+export function addKnown(data) {
+  return request({
+    url: '/sys/known',
+    method: 'post',
+    data
+  })
+}
+/* 知识点列表*/
+export function getKnownList() {
+  return request({
+    url: '/sys/known',
+    method: 'get'
+  })
+}
+/* 添加知识点*/
+export function delKnown(data) {
+  return request({
+    url: '/sys/known',
+    method: 'DELETE',
+    data
+  })
+}
