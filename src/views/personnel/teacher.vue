@@ -23,16 +23,16 @@
           <el-tabs v-model="activeTab" @tab-click="handleClick">
             <el-tab-pane label="已审核" name="first">
               <el-table
-                :data="paperData"
+                :data="checkedArray"
                 border
               >
                 <el-table-column
-                  prop="NO"
-                  label="编号"
+                  prop="id"
+                  label="ID"
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="name"
+                  prop="username"
                   label="教师姓名"
                 >
                 </el-table-column>
@@ -42,14 +42,20 @@
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="school"
+                  prop="school_name"
                   label="学校"
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="class"
+                  prop="info"
                   label="任教班级"
+                  :show-overflow-tooltip="true"
                 >
+                  <template slot-scope="slot">
+                    <template>
+                      {{ getArrayStr(slot.row['info']) }}
+                    </template>
+                  </template>
                 </el-table-column>
                 <el-table-column
                   label="管理操作"
@@ -58,29 +64,32 @@
                 >
                   <template slot-scope="scope">
                     <el-button
+                      v-if="scope.row.status !==2"
                       size="mini"
                       type="danger"
-                      @click="handleClick(scope.$index, scope.row)">冻结</el-button>
+                      @click="handleClick('lock', scope.row)">冻结</el-button>
                     <el-button
+                      v-if="scope.row.status ===2"
                       size="mini"
                       type="success"
-                      @click="handleClick(scope.$index, scope.row)">解冻</el-button>
+                      @click="handleClick('unlock', scope.row)">解冻</el-button>
                   </template>
                 </el-table-column>
               </el-table>
             </el-tab-pane>
             <el-tab-pane label="待审核" name="second">
               <el-table
-                :data="paperData"
+                :data="uncheckedArray"
+                :show-overflow-tooltip="true"
                 border
               >
                 <el-table-column
-                  prop="NO"
-                  label="编号"
+                  prop="id"
+                  label="ID"
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="name"
+                  prop="username"
                   label="教师姓名"
                 >
                 </el-table-column>
@@ -90,14 +99,20 @@
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="school"
+                  prop="school_name"
                   label="学校"
                 >
                 </el-table-column>
                 <el-table-column
-                  prop="class"
+                  prop="info"
                   label="任教班级"
+                  :show-overflow-tooltip="true"
                 >
+                  <template slot-scope="slot">
+                    <template>
+                      {{ getArrayStr(slot.row['info']) }}
+                    </template>
+                  </template>
                 </el-table-column>
                 <el-table-column
                   label="管理操作"
@@ -108,11 +123,11 @@
                     <el-button
                       size="mini"
                       type="primary"
-                      @click="handleClick(scope.$index, scope.row)">确认</el-button>
+                      @click="handleClick('submit', scope.row)">确认</el-button>
                     <el-button
                       size="mini"
                       type="danger"
-                      @click="handleClick(scope.$index, scope.row)">拒绝</el-button>
+                      @click="handleClick('refuse', scope.row)">拒绝</el-button>
                   </template>
                 </el-table-column>
               </el-table>
@@ -130,7 +145,7 @@
 </template>
 
 <script>
-  import { getTeacherAll, addTeacher } from '@/api/person'
+  import { getTeacherAll, addTeacher, reject, check, lockUser, unlockUser } from '@/api/person'
   import { teacherAdd } from './component'
   export default {
     components: { teacherAdd },
@@ -138,21 +153,79 @@
       return {
         show: false,
         activeTab: 'first',
-        paperData: [
-          { NO: '01', name: '张三', phone: '18610971314', school: '成都一中', class: '高二（16）班' },
-          { NO: '02', name: '张四', phone: '18610971315', school: '成都一中', class: '高二（15）班' }
-        ]
+        checkedArray: [],
+        uncheckedArray: []
       }
     },
     created() {
       this.getTeacherAll()
     },
     methods: {
-      getTeacherAll(type) {
-        getTeacherAll().then().catch()
+      getArrayStr(data) {
+        const array = []
+        data.forEach(item => {
+          array.push(item.class_name)
+        })
+        return array.join(',')
       },
-      handleClick(tab, event) {
-        console.log(tab, event)
+      getTeacherAll(type) {
+        getTeacherAll().then(res => {
+          if (res.data.code === 200) {
+            this.checkedArray = res.data.data.checked
+            this.uncheckedArray = res.data.data.not_checked
+          } else {
+            this.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        })
+      },
+      handleClick(type, data) {
+        if (type === 'lock') { // 冻结
+          lockUser(data.id).then(res => {
+            if (res.data.code === 200) {
+              this.$message({
+                message: '冻结成功',
+                type: 'success'
+              })
+              this.getTeacherAll()
+            }
+          })
+        }
+        if (type === 'unlock') { // 解冻
+          unlockUser(data.id).then(res => {
+            if (res.data.code === 200) {
+              this.$message({
+                message: '解冻成功',
+                type: 'success'
+              })
+              this.getTeacherAll()
+            }
+          })
+        }
+        if (type === 'submit') { // 确认审核
+          check(data.id).then(res => {
+            if (res.data.code === 200) {
+              this.$message({
+                message: '审核成功',
+                type: 'success'
+              })
+              this.getTeacherAll()
+            }
+          })
+        }
+        if (type === 'refuse') { // 拒绝审核
+          reject(data.id).then(res => {
+            if (res.data.code === 200) {
+              this.$message({
+                message: '成功拒绝',
+                type: 'success'
+              })
+              this.getTeacherAll()
+            }
+          })
+        }
       },
       showAdd() {
         this.show = !this.show
@@ -161,7 +234,11 @@
         const that = this
         addTeacher(data).then(function(res) {
           if (res.data.code === 200) {
-            that.handleGetTableData()
+            that.$message({
+              message: '教师添加成功',
+              type: 'success'
+            })
+            this.getTeacherAll()
           } else {
             that.$message({
               message: res.data.message,

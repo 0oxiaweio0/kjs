@@ -84,3 +84,31 @@ export function editSupPwd(data) {
     data
   })
 }
+/* 拒绝审核*/
+export function reject(id) {
+  return request({
+    url: '/sys/user/reject/' + id,
+    method: 'put'
+  })
+}
+/* 审核通过*/
+export function check(id) {
+  return request({
+    url: '/sys/user/check/' + id,
+    method: 'put'
+  })
+}
+/* 冻结教师*/
+export function lockUser(id) {
+  return request({
+    url: '/sys/user/lock/' + id,
+    method: 'put'
+  })
+}
+/* 解冻教师*/
+export function unlockUser(id) {
+  return request({
+    url: '/sys/user/unlock/' + id,
+    method: 'put'
+  })
+}
