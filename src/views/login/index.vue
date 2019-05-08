@@ -93,7 +93,7 @@
         params['username'] = this.loginForm.username
         params['password'] = this.loginForm.password
         this.$store.dispatch('LoginByUsername', params).then(() => {
-          this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
+          this.$store.dispatch('GenerateRoutes', this.$store.state.user.roles).then(() => {
             if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
               this.$router.addRoutes(this.$store.state.permission.addRouters)
               this.$router.push({ path: '/home' })

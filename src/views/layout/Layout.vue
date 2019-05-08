@@ -13,7 +13,7 @@
             <el-dropdown class="avatar-container right-menu-item" trigger="click">
               <div class="avatar-wrapper">
                 <img class="user-avatar" :src="userGif">
-                <span>admin</span>
+                <span>{{userInfo.username}}</span>
                 <i class="el-icon-caret-bottom"></i>
               </div>
               <el-dropdown-menu slot="dropdown">
@@ -26,7 +26,7 @@
               </el-dropdown-menu>
             </el-dropdown>
           </div>
-          <div class="right-menu-cell">
+          <div class="right-menu-cell" v-if="userInfo.sys_role_id ===1">
             <el-dropdown class="avatar-container right-menu-item" trigger="click" style="line-height: 40px">
               <div class="avatar-wrapper">
                 <img class="user-set" :src="userSet">
@@ -53,7 +53,10 @@
         </div>
       </div>
     </div>
-    <edit-password v-if="show" person-id=""></edit-password>
+    <edit-password
+      v-if="show"
+      :person-data="userInfo"
+      @edit-password="editPassword"></edit-password>
   </div>
 </template>
 
@@ -64,7 +67,7 @@ import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import Screenfull from '@/components/Screenfull'
 import editPassword from '@/components/editPassword'
-
+import { editPwd, editSupPwd } from '@/api/person'
 export default {
   name: 'layout',
   components: {
@@ -83,6 +86,11 @@ export default {
   },
   mixins: [ResizeMixin],
   computed: {
+    userInfo() {
+      const user = this.$store.state.user.user
+      user['uname'] = user.username
+      return user
+    },
     sidebar() {
       return this.$store.state.app.sidebar
     },
@@ -98,6 +106,38 @@ export default {
     }
   },
   methods: {
+    editPassword(data) {
+      const that = this
+      if (this.userInfo.sys_role_id !== 1) {
+        editPwd(data).then(function(res) {
+          if (res.data.code === 200) {
+            that.$message({
+              message: res.data.message,
+              type: 'success'
+            })
+          } else {
+            that.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        })
+      } else {
+        editSupPwd(data).then(function(res) {
+          if (res.data.code === 200) {
+            that.$message({
+              message: res.data.message,
+              type: 'success'
+            })
+          } else {
+            that.$message({
+              message: res.data.message,
+              type: 'error'
+            })
+          }
+        })
+      }
+    },
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
     },

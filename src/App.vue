@@ -11,7 +11,7 @@
     created() {
       if (getToken()) {
         console.log('浏览器刷新动态路由配置')
-        this.$store.dispatch('GenerateRoutes', ['superAdmin']).then(() => {
+        this.$store.dispatch('GenerateRoutes', this.$store.state.user.roles).then(() => {
           if (this.$store.state.permission.addRouters && this.$store.state.permission.addRouters.length > 0) {
             this.$router.addRoutes(this.$store.state.permission.addRouters)
           }

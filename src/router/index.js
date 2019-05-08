@@ -42,6 +42,7 @@ export const asyncRouterMap = [
     component: Layout,
     redirect: 'home',
     meta: {
+      roles: ['superAdmin', 'admin'],
       title: 'home',
       icon: 'home',
       name: '首页'
@@ -50,7 +51,7 @@ export const asyncRouterMap = [
       path: 'home',
       component: () => import('@/views/home/index'),
       name: 'home',
-      meta: { title: 'home', icon: 'home', name: '首页' }
+      meta: { roles: ['superAdmin', 'admin'], title: 'home', icon: 'home', name: '首页' }
     }]
   }
 ].concat(testPaperRouterMap, personnelRouterMap, statisticsRouterMap, adminRouterMap)

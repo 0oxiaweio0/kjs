@@ -20,7 +20,7 @@ function hasPermission(roles, route) {
  * @param asyncRouterMap
  */
 function filterAsyncRouter(asyncRouterMap, roles) {
-  const accessedRouters = asyncRouterMap.routers.filter(route => {
+  const accessedRouters = asyncRouterMap.filter(route => {
     if (hasPermission(roles, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)
@@ -54,7 +54,7 @@ const permission = {
   actions: {
     GenerateRoutes({ commit }, data) {
       return new Promise(resolve => {
-        const roles = data.join(',')
+        const roles = data
         let accessedRouters
         if (roles.indexOf('superAdmin') >= 0) {
           accessedRouters = asyncRouterMap

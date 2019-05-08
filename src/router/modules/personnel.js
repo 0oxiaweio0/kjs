@@ -10,8 +10,8 @@ const personnelRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: 'app.personnel',
-    roles: ['superAdmin'],
     meta: {
+      roles: ['superAdmin', 'admin'],
       title: 'personnel',
       name: '人员管理',
       group: 'personnel',
@@ -22,8 +22,8 @@ const personnelRouterMap = [
         path: 'school',
         component: () => import('@/views/personnel/school'),
         name: 'app.personnel.school',
-        roles: ['superAdmin'],
         meta: {
+          roles: ['superAdmin', 'admin'],
           title: 'personnelSchoolManage',
           group: 'personnel',
           name: '学校管理'
@@ -33,8 +33,8 @@ const personnelRouterMap = [
         path: 'class',
         component: () => import('@/views/personnel/class'),
         name: 'app.personnel.class',
-        roles: ['superAdmin'],
         meta: {
+          roles: ['superAdmin', 'admin'],
           title: 'personnelClassManage',
           group: 'personnel',
           name: '班级管理'
@@ -44,8 +44,8 @@ const personnelRouterMap = [
         path: 'teacher',
         component: () => import('@/views/personnel/teacher'),
         name: 'app.personnel.teacher',
-        roles: ['superAdmin'],
         meta: {
+          roles: ['superAdmin', 'admin'],
           title: 'personnelTeacherManage',
           group: 'personnel',
           name: '教师管理'

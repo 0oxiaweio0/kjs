@@ -9,8 +9,8 @@ const adminRouterMap = [
     redirect: '/admin/Manage',
     component: Layout,
     name: 'app.admin',
-    roles: ['superAdmin'],
     meta: {
+      roles: ['superAdmin'],
       title: 'admin',
       name: '管理操作',
       group: 'adminManage'
@@ -20,8 +20,8 @@ const adminRouterMap = [
       path: 'Manage',
       component: () => import('@/views/admin/Manage'),
       name: 'app.admin.Manage',
-      roles: ['superAdmin'],
       meta: {
+        roles: ['superAdmin'],
         title: 'adminManage',
         group: 'adminManage',
         name: '管理员管理'

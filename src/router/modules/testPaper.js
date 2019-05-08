@@ -10,8 +10,8 @@ const testPaperRouterMap = [
     redirect: '/testPaper/index',
     component: Layout,
     name: 'app.testPaper',
-    roles: ['superAdmin'],
     meta: {
+      roles: ['superAdmin', 'admin'],
       title: 'testPaper',
       name: '试卷管理',
       group: 'testPaper',
@@ -21,8 +21,8 @@ const testPaperRouterMap = [
       path: 'index',
       component: () => import('@/views/testPaper/index'),
       name: 'app.testPaper.index',
-      roles: ['superAdmin'],
       meta: {
+        roles: ['superAdmin', 'admin'],
         icon: 'paper',
         title: 'testPaperIndex',
         group: 'testPaper',
@@ -33,8 +33,8 @@ const testPaperRouterMap = [
       component: () => import('@/views/testPaper/list'),
       name: 'app.testPaper.list',
       hidden: true,
-      roles: ['superAdmin'],
       meta: {
+        roles: ['superAdmin', 'admin'],
         title: 'testPaperList',
         group: 'testPaper',
         name: '试卷列表'
@@ -43,8 +43,8 @@ const testPaperRouterMap = [
       path: 'paperAdd',
       component: () => import('@/views/testPaper/paperAdd'),
       name: 'app.testPaper.paperAdd',
-      roles: ['superAdmin'],
       meta: {
+        roles: ['superAdmin', 'admin'],
         title: 'testPaperAdd',
         group: 'testPaper',
         name: '试卷添加'

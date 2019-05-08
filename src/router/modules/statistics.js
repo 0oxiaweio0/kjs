@@ -10,8 +10,8 @@ const statisticsRouterMap = [
     component: Layout,
     redirect: 'noredirect',
     name: 'app.statistics',
-    roles: ['superAdmin'],
     meta: {
+      roles: ['superAdmin', 'admin'],
       title: 'statistics',
       name: '统计报告',
       group: 'statistics',
@@ -21,8 +21,8 @@ const statisticsRouterMap = [
       path: 'index',
       component: () => import('@/views/statistics/index'),
       name: 'app.statistics.index',
-      roles: ['superAdmin'],
       meta: {
+        roles: ['superAdmin', 'admin'],
         icon: 'statistics',
         title: 'statisticsIndex',
         group: 'statistics',

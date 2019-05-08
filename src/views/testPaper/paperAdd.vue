@@ -44,8 +44,12 @@
         <el-form-item label="单元:">
           <el-col :xs="24" :sm="6" :md="6" :lg="6">
             <el-select v-model="formData.unit_id" placeholder="请选择单元">
-              <el-option label="上册" value="sc"></el-option>
-              <el-option label="下册" value="xc"></el-option>
+              <el-option
+                v-for="item in unitOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
+              </el-option>
             </el-select>
           </el-col>
         </el-form-item>
@@ -138,6 +142,9 @@
       },
       educationOptions() {
         return this.$store.state.user.resCode.edus
+      },
+      unitOptions() {
+        return this.$store.state.user.resCode.units
       }
     },
     methods: {

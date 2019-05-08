@@ -8,7 +8,7 @@ const user = {
     resCode: null,
     code: '',
     token: getToken(),
-    roles: ['superAdmin']
+    roles: []
   },
 
   mutations: {
@@ -39,6 +39,7 @@ const user = {
         loginByUsername(userInfo).then(response => {
           const data = response.data.data
           const token = 'admin'
+          commit('SET_ROLES', data.login.sys_role_id === 1 ? ['superAdmin'] : ['admin'])
           commit('SET_TOKEN', token)
           commit('SET_USER', data.login)
           setToken(token)
@@ -53,7 +54,6 @@ const user = {
       return new Promise((resolve, reject) => {
         getBaseCode().then(response => {
           const resCode = response.data.data.items
-          console.log(resCode)
           commit('SET_RESCODE', resCode)
           resolve()
         }).catch(error => {
