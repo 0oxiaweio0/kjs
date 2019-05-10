@@ -1,5 +1,14 @@
 const baseData = {
   stOptions: [
+    { id: 1, name: 1 },
+    { id: 2, name: 2 },
+    { id: 3, name: 3 },
+    { id: 4, name: 4 },
+    { id: 5, name: 5 },
+    { id: 6, name: 6 },
+    { id: 7, name: 7 },
+    { id: 8, name: 8 },
+    { id: 9, name: 9 },
     { id: 10, name: 10 },
     { id: 11, name: 11 },
     { id: 12, name: 12 },
@@ -21,6 +30,16 @@ const baseData = {
     { id: 28, name: 28 },
     { id: 29, name: 29 },
     { id: 30, name: 30 }
+  ],
+  letterOption: [
+    { id: 'A', name: 'A' },
+    { id: 'B', name: 'B' },
+    { id: 'C', name: 'C' },
+    { id: 'D', name: 'D' },
+    { id: 'E', name: 'E' },
+    { id: 'F', name: 'F' },
+    { id: 'J', name: 'J' },
+    { id: 'H', name: 'H' }
   ]
 }
 export default baseData

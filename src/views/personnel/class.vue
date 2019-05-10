@@ -54,7 +54,7 @@
                 <el-button
                   size="mini"
                   type="danger"
-                  icon="el-icon-delete"
+                  icon="el-icon-tickets"
                   @click="handleClick(scope.$index, scope.row)">报表</el-button>
               </template>
             </el-table-column>

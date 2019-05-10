@@ -5,6 +5,7 @@ const tableConfig = {
   background: true,
   pageSizes: [10, 20, 50, 100],
   pageSize: 10,
-  currentPage: 1
+  currentPage: 1,
+  pageCount: 0
 }
 export default tableConfig

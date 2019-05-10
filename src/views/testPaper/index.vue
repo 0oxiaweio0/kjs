@@ -10,10 +10,10 @@
                 <p>{{classItem.className}}</p>
                 <span>{{classItem.eName}}</span>
                 <div class="paper-item-le">
-                  <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
+                  <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
                     {{classItem.children[0].classLevel}}
                   </router-link>
-                  <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
+                  <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
                     {{classItem.children[1].classLevel}}
                   </router-link>
                 </div>
@@ -35,10 +35,10 @@
                   <p>{{classItem.className}}</p>
                   <span>{{classItem.eName}}</span>
                   <div class="paper-item-le">
-                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
+                    <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
                       {{classItem.children[0].classLevel}}
                     </router-link>
-                    <router-link :to="{name:'app.testPaper.list',params:{'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
+                    <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[1].classLevelType}}">
                       {{classItem.children[1].classLevel}}
                     </router-link>
                   </div>

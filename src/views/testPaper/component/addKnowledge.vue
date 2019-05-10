@@ -42,6 +42,7 @@
     name: 'KnowledgeDialog',
     data() {
       return {
+        loading: false,
         disabled: false,
         addShow: false,
         dialogVisible: false,

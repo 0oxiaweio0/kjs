@@ -21,23 +21,23 @@
       <el-col :xs="24" :sm="24" :md="24" :lg="24" >
         <el-row :gutter="0" class="statistics-total">
           <el-col :xs="24" :sm="8" :md="8" :lg="8">
-            <p class="title-bold">初一年级上册试卷列表</p>
-            <span class="title-span">Grade One</span>
+            <p class="title-bold">{{name.cname}}{{name.bookName}}</p>
+            <span class="title-span">{{name.eName}}</span>
           </el-col>
           <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">50</p>
+            <p class="title-bold">{{paperHeaderData.paper_total}}</p>
             <span class="title-span">试卷总数</span>
           </el-col>
           <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">10</p>
+            <p class="title-bold">{{paperHeaderData.school_total}}</p>
             <span class="title-span">使用学校数</span>
           </el-col>
           <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">60</p>
+            <p class="title-bold">{{paperHeaderData.classes_total}}</p>
             <span class="title-span">使用班级数</span>
           </el-col>
           <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">100</p>
+            <p class="title-bold">{{paperHeaderData.student_total}}</p>
             <span class="title-span">总考试人数</span>
           </el-col>
         </el-row>
@@ -46,22 +46,26 @@
         <div class="table-content">
           <el-table
             :data="paperData"
+            v-loading="loading"
+            element-loading-text="拼命加载中"
             border
             max-height="500"
             >
             <el-table-column
-              prop="name"
+              prop="paper_name"
               label="试卷名称"
             >
             </el-table-column>
             <el-table-column
-              prop="count"
+              prop="student_count"
               label="考试人数"
+              width="100"
             >
             </el-table-column>
             <el-table-column
-              prop="pass"
+              prop="pass_rate"
               label="及格率"
+              width="100"
             >
             </el-table-column>
             <el-table-column
@@ -75,11 +79,11 @@
                   type="primary"
                   icon="el-icon-edit"
                   @click="handleClick(scope.$index, scope.row)">修改</el-button>
-                <el-button
+         <!--       <el-button
                   size="mini"
                   type="danger"
                   icon="el-icon-delete"
-                  @click="handleClick(scope.$index, scope.row)">删除</el-button>
+                  @click="handleClick(scope.$index, scope.row)">删除</el-button>-->
               </template>
             </el-table-column>
           </el-table>
@@ -87,9 +91,10 @@
                          :background="tablePageConfig.background"
                          @size-change="handleSizeChange"
                          @current-change="handleCurrentChange"
-                         :current-page="tablePageConfig.currentPage"
+                         :current-page="page_num"
                          :page-sizes="tablePageConfig.pageSizes"
                          :page-size="tablePageConfig.pageSize"
+                         :page-count="total"
                          layout="total, sizes, prev, pager, next, jumper"
           >
           </el-pagination>
@@ -101,35 +106,81 @@
 
 <script>
   import tablePageConfig from '@/data/config/tablePageConfig'
-  import paperData from '@/data/test/paperData'
-  import { getPapersList } from '@/api/testPaper'
+  import classData from '@/data/config/classData'
+  import { getPapersList, getPapersHeader } from '@/api/testPaper'
   export default {
     name: 'testPaperList',
     data() {
       return {
-        tablePageConfig,
-        paperData
+        name: {},
+        loading: false,
+        tablePageConfig: tablePageConfig,
+        paperHeaderData: [],
+        paperData: [],
+        total: 0,
+        page_num: 1,
+        page_per_count: 10
       }
     },
     methods: {
+      title() {
+        let selectClassData = null
+        for (let i = 0; i < classData.length; i++) {
+          if (String(classData[i].level) === String(this.$route.params.level) && String(classData[i].classType) === String(this.$route.params.class)) {
+            this.name['cname'] = classData[i].className
+            this.name['eName'] = classData[i].eName
+            selectClassData = classData[i]
+          }
+        }
+        for (let j = 0; j < selectClassData.children.length; j++) {
+          if (String(selectClassData.children[j].classLevelType) === String(this.$route.params.type)) {
+            this.name['bookName'] = selectClassData.children[j].classLevel
+          }
+        }
+      },
+      loadData() {
+        this.loading = true
+        getPapersHeader({
+          education_id: this.$route.params.level,
+          grade_id: this.$route.params.class,
+          book_id: this.$route.params.type
+        }).then(res => {
+          if (res.data.code === 200) {
+            this.paperHeaderData = res.data.data.paper_overview
+          }
+        })
+        getPapersList({
+          education_id: this.$route.params.level,
+          grade_id: this.$route.params.class,
+          book_id: this.$route.params.type,
+          page_num: this.page_num,
+          page_per_count: this.page_per_count
+        }).then(res => {
+          this.loading = false
+          if (res.data.code === 200) {
+            this.paperData = res.data.data.papge_page_data.page_data
+            this.total = res.data.data.papge_page_data.total_page
+          }
+        }).catch(() => {
+          this.loading = false
+        })
+      },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`)
+        this.page_per_count = val
+        this.loadData()
       },
       handleCurrentChange(val) {
-        console.log(`当前页: ${val}`)
+        this.page_num = val
+        this.loadData()
       },
       handleClick($index, row) {
-        console.log(row)
+        this.$router.push({ name: 'app.testPaper.paperEdit', params: { id: row.paper_id }})
       }
     },
     components: { },
     created() {
-      getPapersList({
-        education_id: this.$route.params.class,
-        book_id: this.$route.params.type,
-        page_num: 1,
-        page_per_count: 10
-      })
+      this.loadData()
+      this.title()
     }
   }
 </script>

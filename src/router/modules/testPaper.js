@@ -29,7 +29,7 @@ const testPaperRouterMap = [
         name: '试卷管理'
       }
     }, {
-      path: 'list/:class/:type',
+      path: 'list/:level/:class/:type',
       component: () => import('@/views/testPaper/list'),
       name: 'app.testPaper.list',
       hidden: true,
@@ -48,6 +48,18 @@ const testPaperRouterMap = [
         title: 'testPaperAdd',
         group: 'testPaper',
         name: '试卷添加'
+      },
+      hidden: true
+    },
+    {
+      path: 'paperEdit/:id',
+      component: () => import('@/views/testPaper/paperAdd'),
+      name: 'app.testPaper.paperEdit',
+      meta: {
+        roles: ['superAdmin', 'admin'],
+        title: 'testPaperAdd',
+        group: 'testPaper',
+        name: '试卷修改'
       },
       hidden: true
     }
