@@ -4,39 +4,39 @@
       <div class="query-cotent">
         <el-row :gutter="20">
           <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add" style="float: right">
-            <el-button type="primary" @click="showAdd">
+<!--            <el-button type="primary" @click="showAdd">
               添加班级
-            </el-button>
+            </el-button>-->
           </el-col>
         </el-row>
       </div>
       <el-collapse v-model="activeName" @change="handleChange" accordion>
-        <el-collapse-item name="1">
+        <el-collapse-item :name="tableItem.school_name" v-for="tableItem in tableData" :key="tableItem.school_name">
           <template slot="title" class="el-collapse-title-content">
             <img :src="schoolPng" alt="学校图标">
-            <span>成都树德中学</span>
+            <span>{{tableItem.school_name}}</span>
           </template>
           <el-table
-            :data="paperData"
+            :data="tableItem.clsinfo"
             border
           >
             <el-table-column
-              prop="name"
+              prop="id"
               label="编号"
             >
             </el-table-column>
             <el-table-column
-              prop="count"
+              prop="class_name"
               label="班级名称"
             >
             </el-table-column>
             <el-table-column
-              prop="pass"
+              prop="student_count"
               label="人数"
             >
             </el-table-column>
             <el-table-column
-              prop="pass"
+              prop="username"
               label="班主任"
             >
             </el-table-column>
@@ -46,11 +46,11 @@
               width="190"
             >
               <template slot-scope="scope">
-                <el-button
+     <!--           <el-button
                   size="mini"
                   type="primary"
                   icon="el-icon-edit"
-                  @click="handleClick(scope.$index, scope.row)">编辑</el-button>
+                  @click="handleClick(scope.$index, scope.row)">编辑</el-button>-->
                 <el-button
                   size="mini"
                   type="danger"
@@ -59,18 +59,6 @@
               </template>
             </el-table-column>
           </el-table>
-        </el-collapse-item>
-        <el-collapse-item name="2">
-          <template slot="title" class="el-collapse-title-content">
-            <img :src="schoolPng" alt="学校图标">
-            <span>成都十七中</span>
-          </template>
-        </el-collapse-item>
-        <el-collapse-item name="3">
-          <template slot="title" class="el-collapse-title-content">
-            <img :src="schoolPng" alt="学校图标">
-            <span>新都中学</span>
-          </template>
         </el-collapse-item>
       </el-collapse>
     </div>
@@ -86,8 +74,8 @@
       return {
         schoolPng,
         show: false,
-        activeName: '1',
-        paperData: []
+        activeName: '',
+        tableData: []
       }
     },
     methods: {
@@ -98,7 +86,8 @@
         const that = this
         getClassList().then(function(res) {
           if (res.data.code === 200) {
-            that.tableData = res.data.data.schools
+            that.activeName = res.data.data && res.data.data.length > 0 ? res.data.data[0].school_name : ''
+            that.tableData = res.data.data
           } else {
             that.$message({
               message: res.data.message,

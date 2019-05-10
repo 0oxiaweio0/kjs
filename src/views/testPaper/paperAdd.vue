@@ -112,7 +112,6 @@
     </knowledge-dialog>
   </div>
 </template>
-
 <script>
   import baseData from '@/data/config/baseData'
   import KnowledgeDialog from './component/addKnowledge'
