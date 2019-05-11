@@ -8,7 +8,7 @@ const personnelRouterMap = [
   {
     path: '/personnel',
     component: Layout,
-    redirect: 'noredirect',
+    redirect: '/personnel/school',
     name: 'app.personnel',
     meta: {
       roles: ['superAdmin', 'admin'],

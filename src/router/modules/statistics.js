@@ -8,7 +8,7 @@ const statisticsRouterMap = [
   {
     path: '/statistics',
     component: Layout,
-    redirect: 'noredirect',
+    redirect: '/statistics/index',
     name: 'app.statistics',
     meta: {
       roles: ['superAdmin', 'admin'],

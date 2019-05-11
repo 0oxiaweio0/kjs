@@ -119,3 +119,11 @@ export function getClassTree() {
     method: 'get'
   })
 }
+/* 获取年级树*/
+export function postConfmg(data) {
+  return request({
+    url: '/sys/confmg',
+    method: 'post',
+    data
+  })
+}

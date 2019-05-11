@@ -9,6 +9,15 @@
                 添加管理员
               </el-button>
             </el-col>
+            <el-col :xs="16" :sm="16" :md="16" :lg="16"  class="paper-add" style="float: right">
+              <el-switch
+                @change="switchStatus"
+                style="display: block"
+                v-model="isTrue"
+                active-color="#13ce66"
+                active-text="小程序注册教师需审核">
+              </el-switch>
+            </el-col>
           </el-row>
         </div>
         <div class="el-tabs-content"
@@ -68,12 +77,14 @@
 
 <script>
   import editPassword from '@/components/editPassword'
-  import { getManagerList, addAdmin, lockAdmin, unlockAdmin, editPwd, editSupPwd } from '@/api/person'
+  import { getManagerList, addAdmin, lockAdmin, unlockAdmin, editPwd, editSupPwd, postConfmg } from '@/api/person'
+  import { getBaseCode } from '@/api/login'
   import adminAdd from './components/adminAdd'
   export default {
     components: { editPassword, adminAdd },
     data() {
       return {
+        isTrue: false,
         selectData: null,
         loading: false,
         show: false,
@@ -82,6 +93,34 @@
       }
     },
     methods: {
+      getStatus() {
+        getBaseCode().then(res => {
+          if (res.data.code === 200) {
+            const status = res.data.data.items.config.filter(item => item.item === 'teacher_regist_is_check')[0]
+            if (status.value === 'OFF') this.isTrue = false
+            if (status.value === 'ON') this.isTrue = true
+          }
+        })
+      },
+      switchStatus() {
+        const that = this
+        const postData = { item: 'teacher_regist_is_check', value: 'OFF' }
+        if (this.isTrue) postData.value = 'ON'
+        if (!this.isTrue) postData.value = 'OFF'
+        postConfmg(postData).then(function(res) {
+          console.log(res.data.code === 200)
+          if (res.data.code === 200) {
+            that.$message({
+              message: '状态配置成功！',
+              type: 'success'
+            })
+          } else {
+            this.isTrue = !this.isTrue
+          }
+        }).catch(() => {
+          this.isTrue = !this.isTrue
+        })
+      },
       handleClick(type, data) {
         const that = this
         if (type === 'lock') {
@@ -206,11 +245,14 @@
     },
     created() {
       this.handleGetTableData()
+      this.getStatus()
     }
   }
 </script>
 <style rel="stylesheet/scss" lang="scss">
 </style>
 <style rel="stylesheet/scss" lang="scss" scoped>
-
+  .el-switch{
+    margin-top: 5px;
+  }
 </style>

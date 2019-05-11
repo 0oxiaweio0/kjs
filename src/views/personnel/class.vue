@@ -82,6 +82,12 @@
       handleChange(val) {
         console.log(val)
       },
+      handleClick() {
+        this.$message({
+          message: '该功能尚未开发',
+          type: 'error'
+        })
+      },
       handleClassData() {
         const that = this
         getClassList().then(function(res) {
