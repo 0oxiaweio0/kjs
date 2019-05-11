@@ -95,7 +95,6 @@
                   <el-select
                     v-model="scope.row.options"
                     filterable
-                    :multiple="true"
                     placeholder="请选择">
                     <el-option
                       v-for="item in letterOption"
@@ -117,7 +116,7 @@
                     filterable
                     placeholder="请选择">
                     <el-option
-                      v-for="item in letterOption"
+                      v-for="item in getanswerOption(scope.row.options)"
                       :key="item.id"
                       :label="item.name"
                       :value="item.id">
@@ -179,6 +178,7 @@
         loading: false,
         disabled: false,
         knowledgeOptions: [],
+        answerOption: baseData.answerOption,
         stOptions: baseData.stOptions,
         letterOption: baseData.letterOption,
         questions: [],
@@ -231,26 +231,21 @@
       }
     },
     methods: {
+      getanswerOption(data) {
+        let options = []
+        if (data) {
+          options = this.answerOption.filter(item => data.indexOf(item.id) !== -1)
+        } else {
+          options = []
+        }
+        return options
+      },
       getpaperData() {
         if (this.$route.params.id) {
           const that = this
           this.loading = true
           getpqlist(that.$route.params.id).then(res => {
             if (res.data.code === 200) {
-              res.data.data.forEach(item => {
-                if (item.options) {
-                  const optionsStr = item.options
-                  let optionsArray = []
-                  if (optionsStr.indexOf(',') !== -1) {
-                    optionsArray = optionsStr.split(',')
-                  } else {
-                    for (let i = 0; i < optionsStr.length; i++) {
-                      optionsArray.push(optionsStr.charAt(i))
-                    }
-                  }
-                  item.options = optionsArray
-                }
-              })
               this.questions = res.data.data
             } else {
               that.$message({
@@ -321,11 +316,9 @@
         this.$refs.form.validate((valid) => {
           if (valid) {
             if (this.checkPostData()) {
-              const postData = { paper: this.formData, questions: JSON.stringify(this.questions) }
+              const postData = { paper: this.formData, questions: this.questions }
               postData.paper.total_score = this.totalScore
-              postData.questions = JSON.parse(postData.questions)
               postData.questions.forEach(item => {
-                item.options = item.options.join(',')
                 if (this.$route.params.id) item.paper_id = this.$route.params.id
               })
               this.disabled = true

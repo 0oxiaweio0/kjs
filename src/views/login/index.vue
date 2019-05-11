@@ -7,12 +7,12 @@
         </div>
         <div class="system-user">
           <div class="system-user-content">
-            <div class="system-user-cell">
+        <!--    <div class="system-user-cell">
               <img class="user-avatar" :src="userGif">
               <span>金典教育</span>
               <img class="user-set" :src="userSet">
               <span>设置</span>
-            </div>
+            </div>-->
           </div>
         </div>
       </div>
@@ -274,7 +274,8 @@
             padding: 20px 15px;
             .login-from-title{
               margin-top: 20px;
-              width:80px;
+              width:100%;
+              text-align: center;
               height:28px;
               font-size:20px;
               font-family:PingFangSC-Semibold;

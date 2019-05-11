@@ -68,3 +68,10 @@ export function getporate(id) {
     method: 'get'
   })
 }
+/* 统计报告查询-查询整个平台统计信息*/
+export function getPlatform() {
+  return request({
+    url: '/sys/platform/static',
+    method: 'get'
+  })
+}

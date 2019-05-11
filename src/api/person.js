@@ -112,3 +112,10 @@ export function unlockUser(id) {
     method: 'put'
   })
 }
+/* 获取年级树*/
+export function getClassTree() {
+  return request({
+    url: '/sys/sclstree',
+    method: 'get'
+  })
+}

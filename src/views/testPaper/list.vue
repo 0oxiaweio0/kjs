@@ -22,7 +22,6 @@
         <el-row :gutter="0" class="statistics-total">
           <el-col :xs="24" :sm="8" :md="8" :lg="8">
             <p class="title-bold">{{name.cname}}{{name.bookName}}</p>
-            <span class="title-span">{{name.eName}}</span>
           </el-col>
           <el-col :xs="24" :sm="4" :md="4" :lg="4">
             <p class="title-bold">{{paperHeaderData.paper_total}}</p>
@@ -62,12 +61,12 @@
               width="100"
             >
             </el-table-column>
-            <el-table-column
+     <!--       <el-table-column
               prop="pass_rate"
               label="及格率"
               width="100"
             >
-            </el-table-column>
+            </el-table-column>-->
             <el-table-column
               label="操作"
               fixed="right"
@@ -128,7 +127,6 @@
         for (let i = 0; i < classData.length; i++) {
           if (String(classData[i].level) === String(this.$route.params.level) && String(classData[i].classType) === String(this.$route.params.class)) {
             this.name['cname'] = classData[i].className
-            this.name['eName'] = classData[i].eName
             selectClassData = classData[i]
           }
         }

@@ -8,7 +8,6 @@
             <div class="paper-item">
               <div class="left">
                 <p>{{classItem.className}}</p>
-                <span>{{classItem.eName}}</span>
                 <div class="paper-item-le">
                   <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
                     {{classItem.children[0].classLevel}}
@@ -33,7 +32,6 @@
               <div class="paper-item">
                 <div class="left">
                   <p>{{classItem.className}}</p>
-                  <span>{{classItem.eName}}</span>
                   <div class="paper-item-le">
                     <router-link :to="{name:'app.testPaper.list',params:{'level':classItem.level,'class':classItem.classType,'type':classItem.children[0].classLevelType}}">
                       {{classItem.children[0].classLevel}}
@@ -124,7 +122,7 @@
       p{
         margin-top: 0;
         margin-bottom: 0px;
-        width:88px;
+        width:100px;
         height:30px;
         font-size:22px;
         font-family:PingFangSC-Semibold;

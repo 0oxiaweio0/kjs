@@ -79,7 +79,7 @@
           p{
             margin-top: 0;
             margin-bottom: 10px;
-            width:88px;
+            width:100px;
             height:16px;
             font-size:22px;
             font-family:PingFangSC-Semibold;

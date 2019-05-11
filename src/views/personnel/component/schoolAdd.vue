@@ -14,7 +14,7 @@
           <el-form ref="form"
                    :rules="rules"
                    :model="form"
-                   label-width="80px">
+                   label-width="90px">
             <el-form-item label="学校名称" prop="school_name">
               <el-input v-model="form.school_name"  placeholder="学校名称"></el-input>
             </el-form-item>
