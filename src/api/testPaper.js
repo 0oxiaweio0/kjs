@@ -30,7 +30,7 @@ export function addPaper(data) {
     data
   })
 }
-/* 添加试卷*/
+/* 修改试卷*/
 export function editPaper(id, data) {
   return request({
     url: '/sys/paper/' + id,
@@ -54,10 +54,17 @@ export function getPapersHeader(params) {
     params
   })
 }
-/* 获取试卷列表左侧的统计信息（试卷总数、使用学校数等）*/
+/* 获取试卷试题数据*/
 export function getpqlist(id) {
   return request({
     url: '/sys/pqlist/' + id,
+    method: 'get'
+  })
+}
+/* 获取试卷基本信息*/
+export function getpqInfo(id) {
+  return request({
+    url: '/sys/pinfo/' + id,
     method: 'get'
   })
 }
@@ -65,6 +72,13 @@ export function getpqlist(id) {
 export function getporate(id) {
   return request({
     url: '/sys/porate/' + id,
+    method: 'get'
+  })
+}
+/* 统计报告查询-查询整个平台统计信息*/
+export function getPlatformPaper() {
+  return request({
+    url: '/sys/plreport',
     method: 'get'
   })
 }

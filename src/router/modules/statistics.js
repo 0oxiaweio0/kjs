@@ -23,10 +23,20 @@ const statisticsRouterMap = [
       name: 'app.statistics.index',
       meta: {
         roles: ['superAdmin', 'admin'],
-        icon: 'statistics',
         title: 'statisticsIndex',
         group: 'paper',
-        name: '统计报告'
+        name: '人员报告'
+      }
+    },
+    {
+      path: 'paper',
+      component: () => import('@/views/statistics/paper'),
+      name: 'app.statistics.paper',
+      meta: {
+        roles: ['superAdmin', 'admin'],
+        title: 'statisticsPaper',
+        group: 'paper',
+        name: '试卷报告'
       }
     }
     ]

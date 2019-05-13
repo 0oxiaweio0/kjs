@@ -1,9 +1,11 @@
 export default {
   route: {
+    testPaperEdit: '试卷修改',
+    statisticsPaper: '试卷报告',
     hearing: '听力练习首页',
     page: '考试阅卷首页',
     course: '在线课程首页',
-    statisticsIndex: '主页',
+    statisticsIndex: '人员报告',
     home: '欢迎使用金典教育系统',
     personnelSchoolManage: '学校管理',
     personnelTeacherManage: '教师管理',

@@ -78,12 +78,12 @@ const testPaperRouterMap = [
       hidden: true
     },
     {
-      path: 'paperEdit/:id',
+      path: 'paperEdit/:level/:class/:type/:id',
       component: () => import('@/views/testPaper/paperAdd'),
       name: 'app.testPaper.paperEdit',
       meta: {
         roles: ['superAdmin', 'admin'],
-        title: 'testPaperAdd',
+        title: 'testPaperEdit',
         group: 'paper',
         name: '试卷修改'
       },

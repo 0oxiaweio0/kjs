@@ -12,35 +12,11 @@
         </el-col>
         <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add">
           <el-button type="primary">
-            <router-link :to="{name:'app.testPaper.paperAdd'}">添加试卷</router-link>
           </el-button>
         </el-col>
       </el-row>
     </div>
     <el-row :gutter="20">
-      <el-col :xs="24" :sm="24" :md="24" :lg="24" >
-        <el-row :gutter="0" class="statistics-total">
-          <el-col :xs="24" :sm="8" :md="8" :lg="8">
-            <p class="title-bold">{{name.cname}}{{name.bookName}}</p>
-          </el-col>
-          <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">{{paperHeaderData.paper_total}}</p>
-            <span class="title-span">试卷总数</span>
-          </el-col>
-          <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">{{paperHeaderData.school_total}}</p>
-            <span class="title-span">使用学校数</span>
-          </el-col>
-          <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">{{paperHeaderData.classes_total}}</p>
-            <span class="title-span">使用班级数</span>
-          </el-col>
-          <el-col :xs="24" :sm="4" :md="4" :lg="4">
-            <p class="title-bold">{{paperHeaderData.student_total}}</p>
-            <span class="title-span">总考试人数</span>
-          </el-col>
-        </el-row>
-      </el-col>
       <el-col :xs="24" :sm="24" :md="24" :lg="24" >
         <div class="table-content">
           <el-table
@@ -49,7 +25,7 @@
             element-loading-text="拼命加载中"
             border
             max-height="500"
-            >
+          >
             <el-table-column
               prop="paper_name"
               label="试卷名称"
@@ -61,12 +37,6 @@
               width="100"
             >
             </el-table-column>
-     <!--       <el-table-column
-              prop="pass_rate"
-              label="及格率"
-              width="100"
-            >
-            </el-table-column>-->
             <el-table-column
               label="操作"
               fixed="right"
@@ -77,12 +47,7 @@
                   size="mini"
                   type="primary"
                   icon="el-icon-edit"
-                  @click="handleClick(scope.$index, scope.row)">修改</el-button>
-         <!--       <el-button
-                  size="mini"
-                  type="danger"
-                  icon="el-icon-delete"
-                  @click="handleClick(scope.$index, scope.row)">删除</el-button>-->
+                  @click="handleClick(scope.$index, scope.row)">详细报告</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -105,10 +70,9 @@
 
 <script>
   import tablePageConfig from '@/data/config/tablePageConfig'
-  import classData from '@/data/config/classData'
-  import { getPapersList, getPapersHeader } from '@/api/testPaper'
+  import { getPlatformPaper } from '@/api/testPaper'
   export default {
-    name: 'testPaperList',
+    name: 'statisticsPaperList',
     data() {
       return {
         name: {},
@@ -122,35 +86,12 @@
       }
     },
     methods: {
-      title() {
-        let selectClassData = null
-        for (let i = 0; i < classData.length; i++) {
-          if (String(classData[i].level) === String(this.$route.params.level) && String(classData[i].classType) === String(this.$route.params.class)) {
-            this.name['cname'] = classData[i].className
-            selectClassData = classData[i]
-          }
-        }
-        for (let j = 0; j < selectClassData.children.length; j++) {
-          if (String(selectClassData.children[j].classLevelType) === String(this.$route.params.type)) {
-            this.name['bookName'] = selectClassData.children[j].classLevel
-          }
-        }
-      },
       loadData() {
         this.loading = true
-        getPapersHeader({
-          education_id: this.$route.params.level,
+        getPlatformPaper({
+        /*          education_id: this.$route.params.level,
           grade_id: this.$route.params.class,
-          book_id: this.$route.params.type
-        }).then(res => {
-          if (res.data.code === 200) {
-            this.paperHeaderData = res.data.data.paper_overview
-          }
-        })
-        getPapersList({
-          education_id: this.$route.params.level,
-          grade_id: this.$route.params.class,
-          book_id: this.$route.params.type,
+          book_id: this.$route.params.type,*/
           page_num: this.page_num,
           page_per_count: this.page_per_count
         }).then(res => {
@@ -172,19 +113,12 @@
         this.loadData()
       },
       handleClick($index, row) {
-        this.$router.push({
-          name: 'app.testPaper.paperEdit',
-          params: {
-            level: this.$route.params.level,
-            class: this.$route.params.class,
-            type: this.$route.params.type,
-            id: row.paper_id }})
+        this.$router.push({ name: 'app.testPaper.paperEdit', params: { id: row.paper_id }})
       }
     },
     components: { },
     created() {
       this.loadData()
-      this.title()
     }
   }
 </script>

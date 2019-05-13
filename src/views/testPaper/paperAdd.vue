@@ -159,7 +159,7 @@
         <el-form-item>
           <el-button type="primary" icon="el-icon-plus" @click="setKnowledge">设置知识点</el-button>
           <el-button>取消</el-button>
-          <el-button type="primary" @click="onSubmit" :disabled="disabled">新增试卷</el-button>
+          <el-button type="primary" @click="onSubmit" :disabled="disabled">{{this.$route.params.id?'修改试卷':'新增试卷'}}</el-button>
         </el-form-item>
       </el-form>
     </el-row>
@@ -169,7 +169,7 @@
   </div>
 </template>
 <script>
-  import { getKnownList, addPaper, getpqlist, editPaper } from '@/api/testPaper'
+  import { getKnownList, addPaper, getpqlist, editPaper, getpqInfo } from '@/api/testPaper'
   import baseData from '@/data/config/baseData'
   import KnowledgeDialog from './component/addKnowledge'
   export default {
@@ -248,6 +248,21 @@
         if (this.$route.params.id) {
           const that = this
           this.loading = true
+          getpqInfo(that.$route.params.id).then(res => {
+            if (res.data.code === 200) {
+              const { book_id, education_level_id, grade_level_id, question_num, total_score, unit_id } = res.data.data
+              this.formData = { book_id, education_level_id, grade_level_id, question_num, total_score, unit_id }
+              this.formData.name = res.data.data.paper_name
+              this.gradeOptions = this.educationOptions.filter(item => {
+                return item.edu_level_id === this.formData.education_level_id
+              })[0].grades
+            } else {
+              that.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
           getpqlist(that.$route.params.id).then(res => {
             if (res.data.code === 200) {
               this.questions = res.data.data
@@ -323,6 +338,7 @@
               const postData = { paper: this.formData, questions: this.questions }
               postData.paper.total_score = this.totalScore
               postData.questions.forEach(item => {
+                if (item.knowledge_name) delete item.knowledge_name
                 if (this.$route.params.id) item.paper_id = this.$route.params.id
               })
               this.disabled = true
@@ -334,6 +350,13 @@
                       message: res.data.message,
                       type: 'success'
                     })
+                    this.$router.push({
+                      name: 'app.testPaper.list',
+                      params: {
+                        level: this.$route.params.level,
+                        class: this.$route.params.class,
+                        type: this.$route.params.type
+                      }})
                   }
                 }).catch(() => {
                   this.disabled = false
@@ -346,6 +369,13 @@
                       message: res.data.message,
                       type: 'success'
                     })
+                    this.$router.push({
+                      name: 'app.testPaper.list',
+                      params: {
+                        level: this.$route.params.level,
+                        class: this.$route.params.class,
+                        type: this.$route.params.type
+                      }})
                   }
                 }).catch(() => {
                   this.disabled = false

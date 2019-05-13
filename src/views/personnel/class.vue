@@ -40,24 +40,24 @@
               label="班主任"
             >
             </el-table-column>
-            <el-table-column
+           <!-- <el-table-column
               label="操作"
               fixed="right"
               width="190"
             >
               <template slot-scope="scope">
-     <!--           <el-button
+     &lt;!&ndash;           <el-button
                   size="mini"
                   type="primary"
                   icon="el-icon-edit"
-                  @click="handleClick(scope.$index, scope.row)">编辑</el-button>-->
+                  @click="handleClick(scope.$index, scope.row)">编辑</el-button>&ndash;&gt;
                 <el-button
                   size="mini"
                   type="danger"
                   icon="el-icon-tickets"
                   @click="handleClick(scope.$index, scope.row)">报表</el-button>
               </template>
-            </el-table-column>
+            </el-table-column>-->
           </el-table>
         </el-collapse-item>
       </el-collapse>
