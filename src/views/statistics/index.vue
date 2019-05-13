@@ -1,6 +1,7 @@
 <template>
   <div class="statistics-page">
     <el-row :gutter="20"
+            v-if="false"
             v-loading="loading"
             element-loading-text="拼命加载中">
       <el-col :xs="24" :sm="4" :md="4" :lg="4">
@@ -8,6 +9,7 @@
       </el-col>
       <el-col :xs="24" :sm="20" :md="20" :lg="20"></el-col>
     </el-row>
+    <span class="show-msg">    无准确的统计报告数据</span>
   </div>
 </template>
 <script>
@@ -75,4 +77,8 @@
   }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+  .show-msg{
+    color: red;
+    line-height: 300px;
+  }
 </style>

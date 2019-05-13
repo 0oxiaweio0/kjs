@@ -24,14 +24,16 @@
             </el-select>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6">
-            <el-select v-model="formData.grade_level_id" placeholder="请选择">
-              <el-option
-                v-for="item in gradeOptions"
-                :key="item.grade_level_id"
-                :label="item.grade_level"
-                :value="item.grade_level_id">
-              </el-option>
-            </el-select>
+            <el-form-item  prop="grade_level_id">
+              <el-select v-model="formData.grade_level_id" placeholder="请选择">
+                <el-option
+                  v-for="item in gradeOptions"
+                  :key="item.grade_level_id"
+                  :label="item.grade_level"
+                  :value="item.grade_level_id">
+                </el-option>
+              </el-select>
+            </el-form-item>
           </el-col>
         </el-form-item>
         <el-form-item label="上下册:" prop="book_id">
@@ -46,14 +48,16 @@
             </el-select>
           </el-col>
           <el-col :xs="24" :sm="6" :md="6" :lg="6">
-            <el-select v-model="formData.unit_id" placeholder="请选择单元">
-              <el-option
-                v-for="item in unitOptions"
-                :key="item.id"
-                :label="item.name"
-                :value="item.id">
-              </el-option>
-            </el-select>
+            <el-form-item prop="unit_id">
+              <el-select v-model="formData.unit_id" placeholder="请选择单元">
+                <el-option
+                  v-for="item in unitOptions"
+                  :key="item.id"
+                  :label="item.name"
+                  :value="item.id">
+                </el-option>
+              </el-select>
+            </el-form-item>
           </el-col>
         </el-form-item>
         <el-form-item label="题数:" prop="question_num">

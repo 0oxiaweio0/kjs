@@ -3,7 +3,7 @@
     <div class="nav-top">
       <div class="nav-top-content">
         <div class="system-logo">
-          金典教育LOGO
+          <img :src="logo" alt="logo">
         </div>
         <div class="right-menu">
           <div class="right-menu-cell">
@@ -62,6 +62,7 @@
 
 <script>
 import userSet from '@/assets/icon/set.png'
+import logo from '@/assets/logo.new.png'
 import userGif from '@/assets/user.gif'
 import { Navbar, Sidebar, AppMain } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
@@ -81,6 +82,7 @@ export default {
     return {
       userGif,
       userSet,
+      logo,
       show: false
     }
   },
@@ -184,18 +186,17 @@ export default {
         .system-logo{
           position: absolute;
           left: 0;
-          top: 50%;
-          margin-top: -14.5px;
-          vertical-align: middle;
-          width:164px;
-          height:29px;
-          font-size:20px;
+          top: 0;
+          height: 100%;
           font-family:Helvetica;
           color:rgba(51,51,51,1);
           line-height:24px;
           letter-spacing:3px;
           display: table-cell;
           vertical-align: middle;
+          img{
+            height: 80px;
+          }
         }
         .right-menu {
           float: right;

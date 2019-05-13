@@ -5,11 +5,12 @@ import personnelRouterMap from './modules/personnel'
 import statisticsRouterMap from './modules/statistics'
 import testPaperRouterMap from './modules/testPaper'
 import adminRouterMap from './modules/superAdmin'
+import homeRouterMap from './modules/home'
 
 Vue.use(Router)
 
 /* Layout */
-import Layout from '@/views/layout/Layout'
+// import Layout from '@/views/layout/Layout'
 
 /** note: submenu only apppear when children.length>=1
  *   detail see  https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -32,29 +33,13 @@ import Layout from '@/views/layout/Layout'
 export const constantRouterMap = [
   { path: '/login', component: () => import('@/views/login/index'), hidden: true },
   { path: '/404', component: () => import('@/views/errorPage/404'), hidden: true },
-  { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true }
+  { path: '/401', component: () => import('@/views/errorPage/401'), hidden: true },
+  { path: '/dashboard', component: () => import('@/views/home/index'), hidden: true, name: 'app.dashboard' }
 ]
 
 export const asyncRouterMap = [
-  { path: '*', redirect: '/404', hidden: true },
-  {
-    path: '',
-    component: Layout,
-    redirect: 'home',
-    meta: {
-      roles: ['superAdmin', 'admin'],
-      title: 'home',
-      icon: 'home',
-      name: '首页'
-    },
-    children: [{
-      path: 'home',
-      component: () => import('@/views/home/index'),
-      name: 'home',
-      meta: { roles: ['superAdmin', 'admin'], title: 'home', icon: 'home', name: '首页' }
-    }]
-  }
-].concat(testPaperRouterMap, personnelRouterMap, statisticsRouterMap, adminRouterMap)
+  { path: '*', redirect: '/404', hidden: true }
+].concat(homeRouterMap, testPaperRouterMap, personnelRouterMap, statisticsRouterMap, adminRouterMap)
 
 export default new Router({
   // mode: 'history', // require service support

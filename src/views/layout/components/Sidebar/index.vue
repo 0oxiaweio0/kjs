@@ -9,7 +9,7 @@
       text-color="rgba(255, 255, 255, 0.447058823529412)"
       active-text-color="#FFFFFF"
     >
-      <sidebar-item :routes="addRouters"></sidebar-item>
+      <sidebar-item :routes="modalRouters"></sidebar-item>
     </el-menu>
   </el-scrollbar>
 </template>
@@ -27,7 +27,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'addRouters',
+      'modalRouters',
       'sidebar'
     ]),
     isCollapse() {

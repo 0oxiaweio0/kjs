@@ -14,7 +14,7 @@ const statisticsRouterMap = [
       roles: ['superAdmin', 'admin'],
       title: 'statistics',
       name: '统计报告',
-      group: 'statistics',
+      group: 'paper',
       icon: 'statistics'
     },
     children: [{
@@ -25,7 +25,7 @@ const statisticsRouterMap = [
         roles: ['superAdmin', 'admin'],
         icon: 'statistics',
         title: 'statisticsIndex',
-        group: 'statistics',
+        group: 'paper',
         name: '统计报告'
       }
     }

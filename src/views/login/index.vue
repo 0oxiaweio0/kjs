@@ -3,7 +3,7 @@
     <div class="login-top">
       <div class="login-top-content">
         <div class="system-logo">
-          金典教育LOGO
+          <img :src="logo" alt="logo">
         </div>
         <div class="system-user">
           <div class="system-user-content">
@@ -52,6 +52,7 @@
 </template>
 
 <script>
+  import logo from '@/assets/logo.new.png'
   import userSet from '@/assets/icon/set.png'
   import userGif from '@/assets/user.gif'
   import BG from '@/assets/bg.jpg'
@@ -66,6 +67,7 @@
         login_logo,
         userGif,
         userSet,
+        logo,
         BG,
         loginForm: {
           username: '', // 用户名
@@ -186,11 +188,8 @@
         .system-logo{
           position: absolute;
           left: 0;
-          top: 50%;
-          margin-top: -14.5px;
           vertical-align: middle;
           width:164px;
-          height:29px;
           font-size:20px;
           font-family:Helvetica;
           color:rgba(51,51,51,1);
@@ -198,6 +197,9 @@
           letter-spacing:3px;
           display: table-cell;
           vertical-align: middle;
+          img{
+            height: 80px;
+          }
         }
         .system-user{
           position: absolute;

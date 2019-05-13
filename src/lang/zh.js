@@ -1,5 +1,8 @@
 export default {
   route: {
+    hearing: '听力练习首页',
+    page: '考试阅卷首页',
+    course: '在线课程首页',
     statisticsIndex: '主页',
     home: '欢迎使用金典教育系统',
     personnelSchoolManage: '学校管理',

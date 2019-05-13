@@ -14,7 +14,7 @@ const personnelRouterMap = [
       roles: ['superAdmin', 'admin'],
       title: 'personnel',
       name: '人员管理',
-      group: 'personnel',
+      group: 'paper',
       icon: 'person'
     },
     children: [
@@ -25,7 +25,7 @@ const personnelRouterMap = [
         meta: {
           roles: ['superAdmin', 'admin'],
           title: 'personnelSchoolManage',
-          group: 'personnel',
+          group: 'paper',
           name: '学校管理'
         }
       },
@@ -36,7 +36,7 @@ const personnelRouterMap = [
         meta: {
           roles: ['superAdmin', 'admin'],
           title: 'personnelClassManage',
-          group: 'personnel',
+          group: 'paper',
           name: '班级管理'
         }
       },
@@ -47,7 +47,7 @@ const personnelRouterMap = [
         meta: {
           roles: ['superAdmin', 'admin'],
           title: 'personnelTeacherManage',
-          group: 'personnel',
+          group: 'paper',
           name: '教师管理'
         }
       }

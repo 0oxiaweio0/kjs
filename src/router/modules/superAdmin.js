@@ -12,8 +12,7 @@ const adminRouterMap = [
     meta: {
       roles: ['superAdmin'],
       title: 'admin',
-      name: '管理操作',
-      group: 'adminManage'
+      name: '管理操作'
     },
     hidden: true,
     children: [{
@@ -23,7 +22,6 @@ const adminRouterMap = [
       meta: {
         roles: ['superAdmin'],
         title: 'adminManage',
-        group: 'adminManage',
         name: '管理员管理'
       },
       hidden: true

@@ -84,7 +84,7 @@
       },
       handleClick() {
         this.$message({
-          message: '该功能尚未开发',
+          message: '无正确的报表数据',
           type: 'error'
         })
       },

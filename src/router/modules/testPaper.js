@@ -6,6 +6,32 @@ import Layout from '@/views/layout/Layout'
 const testPaperRouterMap = [
   /* 试卷管理 */
   {
+    path: '/paper',
+    redirect: '/paper/home',
+    component: Layout,
+    name: 'app.paper',
+    meta: {
+      roles: ['superAdmin', 'admin'],
+      title: 'testPaper',
+      name: '试卷阅读',
+      group: 'paper',
+      icon: 'home'
+    },
+    children: [{
+      path: 'home',
+      component: () => import('@/views/testPaper/index'),
+      name: 'app.testPaper.home',
+      meta: {
+        roles: ['superAdmin', 'admin'],
+        icon: 'home',
+        title: 'testPaperIndex',
+        group: 'paper',
+        name: '试卷阅读',
+        home: true
+      }
+    }]
+  },
+  {
     path: '/testPaper',
     redirect: '/testPaper/index',
     component: Layout,
@@ -14,7 +40,7 @@ const testPaperRouterMap = [
       roles: ['superAdmin', 'admin'],
       title: 'testPaper',
       name: '试卷管理',
-      group: 'testPaper',
+      group: 'paper',
       icon: 'paper'
     },
     children: [{
@@ -25,7 +51,7 @@ const testPaperRouterMap = [
         roles: ['superAdmin', 'admin'],
         icon: 'paper',
         title: 'testPaperIndex',
-        group: 'testPaper',
+        group: 'paper',
         name: '试卷管理'
       }
     }, {
@@ -36,7 +62,7 @@ const testPaperRouterMap = [
       meta: {
         roles: ['superAdmin', 'admin'],
         title: 'testPaperList',
-        group: 'testPaper',
+        group: 'paper',
         name: '试卷列表'
       }
     }, {
@@ -46,7 +72,7 @@ const testPaperRouterMap = [
       meta: {
         roles: ['superAdmin', 'admin'],
         title: 'testPaperAdd',
-        group: 'testPaper',
+        group: 'paper',
         name: '试卷添加'
       },
       hidden: true
@@ -58,7 +84,7 @@ const testPaperRouterMap = [
       meta: {
         roles: ['superAdmin', 'admin'],
         title: 'testPaperAdd',
-        group: 'testPaper',
+        group: 'paper',
         name: '试卷修改'
       },
       hidden: true
