@@ -164,7 +164,8 @@
       </el-form>
     </el-row>
     <knowledge-dialog
-    ref="knowledgeDialog">
+    ref="knowledgeDialog"
+    @re-load="reLoad">
     </knowledge-dialog>
   </div>
 </template>
@@ -302,6 +303,9 @@
             })
           }
         })
+      },
+      reLoad() {
+        this.getKnownList()
       },
       setKnowledge() {
         this.$refs.knowledgeDialog.onOpenDialog()

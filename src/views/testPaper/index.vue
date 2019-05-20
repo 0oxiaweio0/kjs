@@ -75,6 +75,10 @@
   }
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
+  /deep/ .el-card__body{
+    margin: 20px;
+    padding: 0;
+  }
 .test-paper-content{
   padding: 20px;
   .test-paper-items-content{

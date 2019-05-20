@@ -75,11 +75,26 @@ export function getporate(id) {
     method: 'get'
   })
 }
+/* 查询知识点得分率*/
+export function getkrate(id) {
+  return request({
+    url: '/sys/krate/' + id,
+    method: 'get'
+  })
+}
+/* 查询试卷问题得分率*/
+export function getpqrate(id) {
+  return request({
+    url: '/sys/pqrate/' + id,
+    method: 'get'
+  })
+}
 /* 统计报告查询-查询整个平台统计信息*/
-export function getPlatformPaper() {
+export function getPlatformPaper(params) {
   return request({
     url: '/sys/plreport',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 /* 统计报告查询-查询整个平台统计信息*/
@@ -87,5 +102,13 @@ export function getPlatform() {
   return request({
     url: '/sys/platform/static',
     method: 'get'
+  })
+}
+/* 统计报告查询-查询整个平台统计信息*/
+export function getSchoolStatic(params) {
+  return request({
+    url: '/sys/school/static/',
+    method: 'get',
+    params
   })
 }

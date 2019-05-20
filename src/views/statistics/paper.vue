@@ -1,18 +1,49 @@
 <template>
   <div class="test-paper-list-content">
-    <div class="query-cotent">
+    <div class="query">
       <el-row :gutter="20">
-        <el-col :xs="16" :sm="16" :md="16" :lg="16" class="paper-search">
-          <el-input
-            size="medium"
-            placeholder="搜素试卷"
-            suffix-icon="el-icon-search"
-          >
-          </el-input>
+        <el-col :xs="24" :sm="6" :md="4" :lg="4">
+          <el-select v-model="queryData.education_level_id" @change="educationChange" placeholder="请选择年级">
+            <el-option
+              v-for="item in educationOptions"
+              :key="item.edu_level_id"
+              :label="item.edu_name"
+              :value="item.edu_level_id">
+            </el-option>
+          </el-select>
         </el-col>
-        <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add">
-          <el-button type="primary">
-          </el-button>
+        <el-col :xs="24" :sm="6" :md="4" :lg="4">
+          <el-select v-model="queryData.grade_level_id" placeholder="请选择">
+            <el-option
+              v-for="item in gradeOptions"
+              :key="item.grade_level_id"
+              :label="item.grade_level"
+              :value="item.grade_level_id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="4" :lg="4">
+          <el-select v-model="queryData.book_id" placeholder="请选择上下册">
+            <el-option
+              v-for="item in bookOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="24" :sm="6" :md="4" :lg="4">
+          <el-select v-model="queryData.unit_id" placeholder="请选择单元">
+            <el-option
+              v-for="item in unitOptions"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :xs="4" :sm="4" :md="4" :lg="4">
+          <el-button type="primary" @click="loadData">搜素</el-button>
         </el-col>
       </el-row>
     </div>
@@ -46,7 +77,7 @@
                 <el-button
                   size="mini"
                   type="primary"
-                  icon="el-icon-edit"
+                  icon="el-icon-tickets"
                   @click="handleClick(scope.$index, scope.row)">详细报告</el-button>
               </template>
             </el-table-column>
@@ -75,23 +106,48 @@
     name: 'statisticsPaperList',
     data() {
       return {
-        name: {},
         loading: false,
         tablePageConfig: tablePageConfig,
         paperHeaderData: [],
         paperData: [],
+        gradeOptions: [],
         total: 0,
         page_num: 1,
-        page_per_count: 10
+        page_per_count: 10,
+        queryData: {
+          grade_level_id: null, // 级别
+          education_level_id: null, // 年级
+          book_id: null, // 册
+          unit_id: null // 单元
+        }
+      }
+    },
+    computed: {
+      bookOptions() {
+        return this.$store.state.user.resCode.books
+      },
+      educationOptions() {
+        return this.$store.state.user.resCode.edus
+      },
+      unitOptions() {
+        return this.$store.state.user.resCode.units
       }
     },
     methods: {
+      educationChange() {
+        this.queryData.grade_level_id = null
+        const education = this.educationOptions.filter(item => {
+          return item.edu_level_id === this.queryData.education_level_id
+        })
+        this.gradeOptions = education ? education[0].grades : []
+      },
       loadData() {
         this.loading = true
         getPlatformPaper({
-        /*          education_id: this.$route.params.level,
-          grade_id: this.$route.params.class,
-          book_id: this.$route.params.type,*/
+          education_id: this.queryData.education_level_id,
+          grade_id: this.queryData.grade_level_id,
+          book_id: this.queryData.book_id,
+          unit_id: this.queryData.unit_id,
           page_num: this.page_num,
           page_per_count: this.page_per_count
         }).then(res => {
@@ -113,7 +169,9 @@
         this.loadData()
       },
       handleClick($index, row) {
-        this.$router.push({ name: 'app.testPaper.paperEdit', params: { id: row.paper_id }})
+        this.$router.push({
+          name: 'app.statistics.detail',
+          params: { id: row.paper_id }})
       }
     },
     components: { },
@@ -122,69 +180,6 @@
     }
   }
 </script>
-<style rel="stylesheet/scss" lang="scss">
-  .test-paper-list-content{
-    text-align: right;
-    .el-row{
-      margin: 10px 0;
-    }
-    .search-content{
-      .paper-add{
-        text-align: left;
-      }
-      .paper-search{
-        text-align: right;
-        .el-input{
-          width: 250px;
-        }
-      }
-    }
-    .statistics-total{
-      margin: 0 auto;
-      padding: 20px;
-      background:linear-gradient(150deg,rgba(255,255,255,1) 0%,rgba(255,255,255,1) 100%);
-      box-shadow:0px 2px 4px 0px rgba(235,241,255,1);
-      border:1px solid rgba(239,239,239,1);
-      .title-bold{
-        font-size:22px;
-        font-family:PingFangSC-Semibold;
-        font-weight:600;
-        color:rgba(51,51,51,1);
-        line-height:30px;
-        margin: 0;
-      }
-      .title-span{
-        font-size:12px;
-        font-family:PingFangSC-Regular;
-        font-weight:400;
-        color:rgba(182,182,182,1);
-        line-height:12px;
-      }
-      .el-col{
-        margin: 5px 0;
-        text-align: left;
-      }
-    }
-    .el-table .cell{
-      text-align: left;
-    }
-    .el-card{
-      text-align: left;
-      el-card__header{
-        font-weight: bold;
-        font-size: 18px;
-      }
-      .el-card__body{
-        .text.item{
-          padding: 5px 0;
-          span{
-            margin-right: 10px;
-          }
-        }
-      }
-    }
-  }
-</style>
 <style rel="stylesheet/scss" lang="scss" scoped>
   .test-paper-list-content{
     .statistics-total{
@@ -193,6 +188,14 @@
     .table-content{
       margin-top: 10px;
 
+    }
+    .el-form-item{
+    }
+    .query{
+      padding-bottom: 20px;
+      .el-row{
+        padding: 0 10px;
+      }
     }
 
   }

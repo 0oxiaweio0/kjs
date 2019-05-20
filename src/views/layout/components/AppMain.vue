@@ -25,7 +25,7 @@ export default {
   .app-main{
     margin: 0px 0 50px 20px;
     padding-right: 20px;
-    padding-bottom: 40px;
+    padding-bottom: 80px;
     padding-top: 20px;
     background-color: #ffffff;
     height: 100%;

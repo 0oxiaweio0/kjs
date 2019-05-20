@@ -20,9 +20,9 @@
                 <el-dropdown-item>
                   <span @click="showEditPassWord">修改密码</span>
                 </el-dropdown-item>
-                <el-dropdown-item divided>
+<!--                <el-dropdown-item divided>
                   <span @click="logout" style="display:block;">退出登录</span>
-                </el-dropdown-item>
+                </el-dropdown-item>-->
               </el-dropdown-menu>
             </el-dropdown>
           </div>

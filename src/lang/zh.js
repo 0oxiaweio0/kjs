@@ -1,5 +1,6 @@
 export default {
   route: {
+    statisticsDetail: '试卷详情统计',
     testPaperEdit: '试卷修改',
     statisticsPaper: '试卷报告',
     hearing: '听力练习首页',

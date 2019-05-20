@@ -29,6 +29,18 @@ const statisticsRouterMap = [
       }
     },
     {
+      path: 'detail/:id',
+      component: () => import('@/views/statistics/detail'),
+      name: 'app.statistics.detail',
+      hidden: true,
+      meta: {
+        roles: ['superAdmin', 'admin'],
+        title: 'statisticsDetail',
+        group: 'paper',
+        name: '人员报告'
+      }
+    },
+    {
       path: 'paper',
       component: () => import('@/views/statistics/paper'),
       name: 'app.statistics.paper',

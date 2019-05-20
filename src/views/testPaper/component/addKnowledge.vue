@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="知识点" :visible.sync="dialogVisible">
+  <el-dialog title="知识点" :visible.sync="dialogVisible" @close="on$emit">
     <el-table v-if="!addShow"
               v-loading="loading"
               element-loading-text="拼命加载中"
@@ -98,6 +98,9 @@
       onCancer() {
         this.addShow = false
         this.form.known_name = ''
+      },
+      on$emit() {
+        this.$emit('re-load')
       },
       onSubmit() {
         this.disabled = true
