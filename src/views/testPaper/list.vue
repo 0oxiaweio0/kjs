@@ -11,8 +11,8 @@
           </el-input>
         </el-col>
         <el-col :xs="8" :sm="8" :md="8" :lg="8"  class="paper-add">
-          <el-button type="primary">
-            <router-link :to="{name:'app.testPaper.paperAdd'}">添加试卷</router-link>
+          <el-button type="primary" @click="handleClickAdd">
+            添加试卷
           </el-button>
         </el-col>
       </el-row>
@@ -179,6 +179,14 @@
             class: this.$route.params.class,
             type: this.$route.params.type,
             id: row.paper_id }})
+      },
+      handleClickAdd() {
+        this.$router.push({
+          name: 'app.testPaper.paperAdd',
+          params: {
+            level: this.$route.params.level,
+            class: this.$route.params.class,
+            type: this.$route.params.type }})
       }
     },
     components: { },

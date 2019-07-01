@@ -2,7 +2,7 @@
   <div class="app-wrapper" :class="classObj">
     <div class="nav-top">
       <div class="nav-top-content">
-        <div class="system-logo">
+        <div class="system-logo" @click="goHome">
           <img :src="logo" alt="logo">
         </div>
         <div class="right-menu">
@@ -143,6 +143,10 @@ export default {
     toggleSideBar() {
       this.$store.dispatch('toggleSideBar')
     },
+    goHome() {
+      this.$router.push({
+        name: 'home' })
+    },
     showEditPassWord() {
       this.show = !this.show
       console.log(this.show)
@@ -196,6 +200,9 @@ export default {
           vertical-align: middle;
           img{
             height: 80px;
+            &:hover{
+              cursor: pointer;
+            }
           }
         }
         .right-menu {

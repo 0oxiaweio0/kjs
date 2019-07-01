@@ -32,7 +32,7 @@ const homeRouterMap = [
     },
     children: [{
       path: 'home',
-      name: 'home',
+      name: 'coursehome',
       meta: { roles: ['superAdmin', 'admin'], title: 'course', icon: 'home', name: '在线课程', group: 'home' }
     }]
   },
@@ -50,7 +50,7 @@ const homeRouterMap = [
     children: [{
       path: 'home',
       component: () => import('@/views/testPaper/index'),
-      name: 'home',
+      name: 'pagehome',
       meta: { roles: ['superAdmin', 'admin'], title: 'page', icon: 'home', name: '考试阅卷', to: 'paper', group: 'home' }
     }]
   },
@@ -67,7 +67,7 @@ const homeRouterMap = [
     },
     children: [{
       path: 'home',
-      name: 'home',
+      name: 'hearinghome',
       meta: { roles: ['superAdmin', 'admin'], title: 'hearing', icon: 'home', name: '听力练习', group: 'home' }
     }]
   }

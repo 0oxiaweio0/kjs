@@ -66,7 +66,7 @@ const testPaperRouterMap = [
         name: '试卷列表'
       }
     }, {
-      path: 'paperAdd',
+      path: 'paperAdd/:level/:class/:type',
       component: () => import('@/views/testPaper/paperAdd'),
       name: 'app.testPaper.paperAdd',
       meta: {
