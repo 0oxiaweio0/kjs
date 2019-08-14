@@ -70,7 +70,6 @@
       }
     },
     created() {
-      console.log(this.$store.state.user.resCode)
     }
   }
 </script>

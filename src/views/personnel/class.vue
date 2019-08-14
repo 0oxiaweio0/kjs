@@ -10,7 +10,9 @@
           </el-col>
         </el-row>
       </div>
-      <el-collapse v-model="activeName" @change="handleChange" accordion>
+      <el-collapse v-model="activeName" @change="handleChange" accordion
+                   v-loading="loading"
+                   element-loading-text="拼命加载中">
         <el-collapse-item :name="tableItem.school_name" v-for="tableItem in tableData" :key="tableItem.school_name">
           <template slot="title" class="el-collapse-title-content">
             <img :src="schoolPng" alt="学校图标">
@@ -74,13 +76,13 @@
       return {
         schoolPng,
         show: false,
+        loading: false,
         activeName: '',
         tableData: []
       }
     },
     methods: {
       handleChange(val) {
-        console.log(val)
       },
       handleClick() {
         this.$message({
@@ -90,6 +92,7 @@
       },
       handleClassData() {
         const that = this
+        this.loading = true
         getClassList().then(function(res) {
           if (res.data.code === 200) {
             that.activeName = res.data.data && res.data.data.length > 0 ? res.data.data[0].school_name : ''
@@ -100,6 +103,7 @@
               type: 'error'
             })
           }
+          that.loading = false
         })
       },
       showAdd() {

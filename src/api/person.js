@@ -32,6 +32,16 @@ export function addSchool(data) {
     data
   })
 }
+/* 更新学校*/
+export function updateSchool(data, id) {
+  var post = data
+  delete post.id
+  return request({
+    url: '/sys/schoolop/' + id,
+    method: 'put',
+    data: post
+  })
+}
 /* 获取学校列表*/
 export function getSchool() {
   return request({
@@ -125,5 +135,28 @@ export function postConfmg(data) {
     url: '/sys/confmg',
     method: 'post',
     data
+  })
+}
+/* h获取省*/
+export function getProvince() {
+  return request({
+    url: '/sys/area',
+    method: 'get'
+  })
+}
+/* 获取市级数据*/
+export function getCity(data) {
+  return request({
+    url: '/sys/area',
+    method: 'get',
+    params: data
+  })
+}
+/* 获取区级数据*/
+export function getArea(data) {
+  return request({
+    url: '/sys/area',
+    method: 'get',
+    params: data
   })
 }

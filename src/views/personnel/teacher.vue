@@ -19,7 +19,9 @@
             </el-col>
           </el-row>
         </div>
-        <div class="el-tabs-content">
+        <div class="el-tabs-content"
+             v-loading="loading"
+             element-loading-text="拼命加载中">
           <el-tabs v-model="activeTab" @tab-click="handleClick">
             <el-tab-pane label="已审核" name="first">
               <el-table
@@ -152,6 +154,7 @@
     data() {
       return {
         show: false,
+        loading: false,
         activeTab: 'first',
         checkedArray: [],
         uncheckedArray: []
@@ -169,6 +172,7 @@
         return array.join(',')
       },
       getTeacherAll(type) {
+        this.loading = true
         getTeacherAll().then(res => {
           if (res.data.code === 200) {
             this.checkedArray = res.data.data.checked
@@ -179,6 +183,7 @@
               type: 'error'
             })
           }
+          this.loading = false
         })
       },
       handleClick(type, data) {

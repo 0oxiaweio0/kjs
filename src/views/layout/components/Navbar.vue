@@ -4,7 +4,7 @@
 
     <breadcrumb class="breadcrumb-container" :show-level="showLevel"></breadcrumb>
     <div class="right-menu">
-      <error-log class="errLog-container right-menu-item"></error-log>
+  <!--    <error-log class="errLog-container right-menu-item"></error-log>-->
     </div>
   </el-menu>
 </template>

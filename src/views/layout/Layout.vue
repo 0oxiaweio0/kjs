@@ -149,7 +149,6 @@ export default {
     },
     showEditPassWord() {
       this.show = !this.show
-      console.log(this.show)
     },
     logout() {
       this.$store.dispatch('LogOut').then(() => {

@@ -31,41 +31,51 @@
             <el-table-column
               prop="address"
               label="学校地址"
+              :show-overflow-tooltip="true"
             >
+              <template slot-scope="scope">
+                {{scope.row.province}}
+                {{scope.row.city}}
+                {{scope.row.county}}
+                {{scope.row.address}}
+              </template>
             </el-table-column>
             <el-table-column
               prop="comment"
               label="备注"
+              :show-overflow-tooltip="true"
             >
             </el-table-column>
-   <!--         <el-table-column
+            <el-table-column
               label="管理操作"
               fixed="right"
-              width="190"
+              width="100"
             >
               <template slot-scope="scope">
                 <el-button
                   size="mini"
                   type="primary"
-                  @click="handleEditClick(scope.$index, scope.row)">修改</el-button>
-                <el-button
+                  @click="handleEditClick(scope.row)">修改</el-button>
+           <!--     <el-button
                   size="mini"
                   type="danger"
-                  @click="handleDelClick(scope.$index, scope.row)">删除</el-button>
+                  @click="handleDelClick(scope.$index, scope.row)">删除</el-button>-->
               </template>
-            </el-table-column>-->
+            </el-table-column>
           </el-table>
         </div>
       </template>
     </div>
-    <school-add v-if="show" :teacher-show="show"
+    <school-add
+      v-if="show"
+      :data="schoolData"
     @add-school="addSchool">
     </school-add>
   </div>
 </template>
 
 <script>
-  import { getSchool, addSchool } from '@/api/person'
+  import { getSchool, addSchool, updateSchool } from '@/api/person'
   import { schoolAdd } from './component'
   export default {
     components: { schoolAdd },
@@ -74,11 +84,15 @@
         loading: false,
         show: false,
         activeTab: 'first',
-        tableData: []
+        tableData: [],
+        schoolData: null
       }
     },
     methods: {
-      handleEditClick() {},
+      handleEditClick(schoolData) {
+        this.schoolData = schoolData
+        this.show = !this.show
+      },
       handleDelClick(tab, event) {
         this.$confirm('此操作将永久删除该学校, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -93,6 +107,7 @@
         })
       },
       showAdd() {
+        this.schoolData = null
         this.show = !this.show
       },
       handleGetTableData() {
@@ -115,16 +130,37 @@
       },
       addSchool(data) {
         const that = this
-        addSchool(data).then(function(res) {
-          if (res.data.code === 200) {
-            that.handleGetTableData()
-          } else {
-            this.$message({
-              message: res.data.message,
-              type: 'error'
-            })
-          }
-        })
+        if (!data.id) {
+          addSchool(data).then(function(res) {
+            if (res.data.code === 200) {
+              that.$message({
+                message: '添加成功',
+                type: 'success'
+              })
+              that.handleGetTableData()
+            } else {
+              that.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        } else {
+          updateSchool(data, data.id).then(function(res) {
+            if (res.data.code === 200) {
+              that.$message({
+                message: '修改成功',
+                type: 'success'
+              })
+              that.handleGetTableData()
+            } else {
+              that.$message({
+                message: res.data.message,
+                type: 'error'
+              })
+            }
+          })
+        }
       }
     },
     created() {

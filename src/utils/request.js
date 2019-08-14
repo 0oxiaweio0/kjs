@@ -64,7 +64,7 @@ service.interceptors.response.use(
   // },
   error => {
     Message({
-      message: error.response.data.message,
+      message: error.response.statusText,
       type: 'error',
       duration: 5 * 1000
     })
